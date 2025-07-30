@@ -810,19 +810,86 @@ const ContactPage = () => (
   </PageWrapper>
 )
 
+// --- Advanced Calendly Integration ---
 const BookingPage = () => {
   const [isCalendlyLoaded, setIsCalendlyLoaded] = useState(false)
-  const [selectedPackage, setSelectedPackage] = useState<"1hour" | "90min" | null>(null)
+  const [calendlyEvents, setCalendlyEvents] = useState<any[]>([])
+  const [selectedEvent, setSelectedEvent] = useState<any>(null)
+  const [isLoadingEvents, setIsLoadingEvents] = useState(true)
+  const [userInfo, setUserInfo] = useState<any>(null)
 
+  // Calendly API configuration
+  const CALENDLY_TOKEN =
+    "eyJraWQiOiIxY2UxZTEzNjE3ZGNmNzY2YjNjZWJjY2Y4ZGM1YmFmYThhNjVlNjg0MDIzZjdjMzJiZTgzNDliMjM4MDEzNWI0IiwidHlwIjoiUEFUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNzUzODgxNTUyLCJqdGkiOiJlZDdmMzI4YS01ZmFjLTRlNTMtODhhNy1kNWYzNWE5NThiMjMiLCJ1c2VyX3V1aWQiOiIwMmQ3ZGI1NS0wNzY4LTQzNmYtYmY2ZC01MmNhZGFhZmNlMTYifQ.USZEX6joSJQbsKoPf73EJBJUjqJQS_M2x5Dw74HI9rAWK0rrVMM9646MR3TM7fy9sPM38g_fk9cr_SKqcQSJgw"
+
+  // Fetch user info and event types from Calendly API
   useEffect(() => {
-    // Load Calendly widget
+    const fetchCalendlyData = async () => {
+      try {
+        setIsLoadingEvents(true)
+
+        // Fetch current user info
+        const userResponse = await fetch("https://api.calendly.com/users/me", {
+          headers: {
+            Authorization: `Bearer ${CALENDLY_TOKEN}`,
+            "Content-Type": "application/json",
+          },
+        })
+
+        if (userResponse.ok) {
+          const userData = await userResponse.json()
+          setUserInfo(userData.resource)
+
+          // Fetch event types for the user
+          const eventsResponse = await fetch(`https://api.calendly.com/event_types?user=${userData.resource.uri}`, {
+            headers: {
+              Authorization: `Bearer ${CALENDLY_TOKEN}`,
+              "Content-Type": "application/json",
+            },
+          })
+
+          if (eventsResponse.ok) {
+            const eventsData = await eventsResponse.json()
+            setCalendlyEvents(eventsData.collection || [])
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching Calendly data:", error)
+        // Fallback to static event data if API fails
+        setCalendlyEvents([
+          {
+            name: "1 Hour Massage Package",
+            duration: 60,
+            scheduling_url: "https://calendly.com/saintedhandsbyjcm",
+            description_plain:
+              "Perfect for targeted relief and relaxation. Includes 1-hour massage + 1 enhancement of your choice + special oil/lotion.",
+            price: "$100",
+          },
+          {
+            name: "90 Minute Massage Package",
+            duration: 90,
+            scheduling_url: "https://calendly.com/saintedhandsbyjcm",
+            description_plain:
+              "Extended session for deep healing and ultimate relaxation. Includes 90-minute massage + 1 enhancement of your choice + special oil/lotion.",
+            price: "$130",
+          },
+        ])
+      } finally {
+        setIsLoadingEvents(false)
+      }
+    }
+
+    fetchCalendlyData()
+  }, [])
+
+  // Load Calendly widget script
+  useEffect(() => {
     const script = document.createElement("script")
     script.src = "https://assets.calendly.com/assets/external/widget.js"
     script.onload = () => setIsCalendlyLoaded(true)
     document.body.appendChild(script)
 
     return () => {
-      // Clean up script if component unmounts
       const existingScript = document.querySelector(
         'script[src="https://assets.calendly.com/assets/external/widget.js"]',
       )
@@ -832,13 +899,66 @@ const BookingPage = () => {
     }
   }, [])
 
-  const getCalendlyUrl = () => {
-    if (selectedPackage === "1hour") {
-      return "https://calendly.com/saintedhandsbyjcm/1-hour-massage-package?hide_gdpr_banner=1&primary_color=d4a373&text_color=283618&background_color=fefae0"
-    } else if (selectedPackage === "90min") {
-      return "https://calendly.com/saintedhandsbyjcm/90-minute-massage-package?hide_gdpr_banner=1&primary_color=d4a373&text_color=283618&background_color=fefae0"
+  // Initialize Calendly widget when event is selected
+  useEffect(() => {
+    if (selectedEvent && isCalendlyLoaded) {
+      const embedContainer = document.getElementById("calendly-embed")
+      if (embedContainer) {
+        // Clear previous embed
+        embedContainer.innerHTML = ""
+
+        // Initialize new embed with custom styling
+        const calendlyUrl = new URL(selectedEvent.scheduling_url)
+        calendlyUrl.searchParams.set("hide_event_type_details", "1")
+        calendlyUrl.searchParams.set("hide_gdpr_banner", "1")
+        calendlyUrl.searchParams.set("background_color", "FEFAE0")
+        calendlyUrl.searchParams.set("text_color", "283618")
+        calendlyUrl.searchParams.set("primary_color", "D4A373")
+
+        // Use advanced JavaScript embed for better control
+        if (window.Calendly) {
+          window.Calendly.initInlineWidget({
+            url: calendlyUrl.toString(),
+            parentElement: embedContainer,
+            resize: true,
+          })
+
+          // Listen for Calendly events
+          const handleCalendlyEvent = (e: MessageEvent) => {
+            if (e.origin === "https://calendly.com" && e.data.event?.startsWith("calendly.")) {
+              console.log("Calendly Event:", e.data.event)
+              console.log("Event Details:", e.data.payload)
+
+              // Handle specific events
+              if (e.data.event === "calendly.event_scheduled") {
+                // Show success message or redirect
+                console.log("Booking completed!")
+              }
+            }
+          }
+
+          window.addEventListener("message", handleCalendlyEvent)
+          return () => window.removeEventListener("message", handleCalendlyEvent)
+        }
+      }
     }
-    return ""
+  }, [selectedEvent, isCalendlyLoaded])
+
+  const getEventPrice = (event: any) => {
+    // Extract price from event name or description
+    if (event.name?.includes("1 Hour") || event.duration === 60) {
+      return "$100"
+    } else if (event.name?.includes("90") || event.duration === 90) {
+      return "$130"
+    }
+    return "Contact for pricing"
+  }
+
+  const getEventDuration = (event: any) => {
+    if (event.duration) {
+      return event.duration >= 60 ? `${event.duration / 60}h` : `${event.duration}min`
+    }
+    return "Contact for duration"
   }
 
   return (
@@ -853,60 +973,50 @@ const BookingPage = () => {
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="text-center text-[#606C38] mb-12 max-w-2xl mx-auto">
-            Choose your package below and select your preferred date and time. Payment will be processed securely
+            Choose your preferred service below and select your ideal date and time. Payment will be processed securely
             through our booking system.
           </motion.p>
 
-          {!selectedPackage ? (
-            // Package Selection
+          {isLoadingEvents ? (
+            // Loading State
+            <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center py-20">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
+              <span className="text-[#606C38] font-semibold">Loading available appointments...</span>
+              <p className="text-[#283618] text-sm mt-2">Connecting to booking system</p>
+            </motion.div>
+          ) : !selectedEvent ? (
+            // Event Selection
             <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-8 font-serif text-[#283618]">Choose Your Package</h2>
+              <h2 className="text-2xl font-bold text-center mb-8 font-serif text-[#283618]">Choose Your Service</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setSelectedPackage("1hour")}
-                  className="bg-[#FAEDCD]/50 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
-                >
-                  <div className="flex items-center justify-center mb-4">
-                    <ClockIcon />
-                    <h3 className="text-2xl font-bold text-[#283618] font-serif">1 Hour Package</h3>
-                  </div>
-                  <p className="text-4xl font-bold text-[#D4A373] mb-4">$100</p>
-                  <p className="text-[#606C38] mb-6">
-                    Perfect for targeted relief and relaxation. Includes 1-hour massage + 1 enhancement of your choice +
-                    special oil/lotion.
-                  </p>
-                  <div className="bg-[#D4A373] text-white py-3 px-6 rounded-full font-semibold group-hover:bg-[#BC6C25] transition-colors">
-                    Select 1 Hour Package
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => setSelectedPackage("90min")}
-                  className="bg-[#FAEDCD]/50 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
-                >
-                  <div className="flex items-center justify-center mb-4">
-                    <ClockIcon />
-                    <h3 className="text-2xl font-bold text-[#283618] font-serif">90 Minute Package</h3>
-                  </div>
-                  <p className="text-4xl font-bold text-[#D4A373] mb-4">$130</p>
-                  <p className="text-[#606C38] mb-6">
-                    Extended session for deep healing and ultimate relaxation. Includes 90-minute massage + 1
-                    enhancement of your choice + special oil/lotion.
-                  </p>
-                  <div className="bg-[#D4A373] text-white py-3 px-6 rounded-full font-semibold group-hover:bg-[#BC6C25] transition-colors">
-                    Select 90 Minute Package
-                  </div>
-                </motion.div>
+                {calendlyEvents.map((event, index) => (
+                  <motion.div
+                    key={event.uri || index}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => setSelectedEvent(event)}
+                    className="bg-[#FAEDCD]/50 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
+                  >
+                    <div className="flex items-center justify-center mb-4">
+                      <ClockIcon />
+                      <h3 className="text-2xl font-bold text-[#283618] font-serif">{event.name}</h3>
+                    </div>
+                    <p className="text-4xl font-bold text-[#D4A373] mb-4">{getEventPrice(event)}</p>
+                    <p className="text-[#606C38] mb-4">Duration: {getEventDuration(event)}</p>
+                    <p className="text-[#606C38] mb-6 text-sm">
+                      {event.description_plain || "Professional massage therapy session tailored to your needs."}
+                    </p>
+                    <div className="bg-[#D4A373] text-white py-3 px-6 rounded-full font-semibold group-hover:bg-[#BC6C25] transition-colors">
+                      Select This Service
+                    </div>
+                  </motion.div>
+                ))}
               </div>
 
               {/* Enhancement Options */}
               <div className="bg-[#FAEDCD]/30 p-6 rounded-2xl border border-[#D4A373]/20 text-center">
-                <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Choose Your Enhancement (Included)</h4>
+                <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Available Enhancements</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-[#606C38]">
                   <div className="flex flex-col items-center">
                     <GeoIconRTR />
@@ -932,32 +1042,37 @@ const BookingPage = () => {
           ) : (
             // Calendly Booking Interface
             <motion.div variants={fadeInUp} className="max-w-5xl mx-auto">
-              {/* Selected Package Header */}
+              {/* Selected Service Header */}
               <div className="bg-[#FAEDCD]/50 p-6 rounded-2xl border border-[#D4A373]/20 mb-8 text-center">
-                <h3 className="text-xl font-bold text-[#283618] font-serif mb-2">
-                  {selectedPackage === "1hour" ? "1 Hour Package Selected" : "90 Minute Package Selected"}
-                </h3>
-                <p className="text-2xl font-bold text-[#D4A373] mb-2">
-                  {selectedPackage === "1hour" ? "$100" : "$130"}
+                <h3 className="text-xl font-bold text-[#283618] font-serif mb-2">{selectedEvent.name}</h3>
+                <p className="text-2xl font-bold text-[#D4A373] mb-2">{getEventPrice(selectedEvent)}</p>
+                <p className="text-[#606C38] text-sm mb-4">
+                  Duration: {getEventDuration(selectedEvent)} | Professional massage therapy
                 </p>
-                <p className="text-[#606C38] text-sm mb-4">Includes massage + 1 enhancement + special oil/lotion</p>
                 <MotionButton
-                  onClick={() => setSelectedPackage(null)}
+                  onClick={() => setSelectedEvent(null)}
                   className="inline-flex items-center text-[#606C38] hover:text-[#BC6C25] transition-colors text-sm"
                 >
                   <BackIcon />
-                  Change Package
+                  Choose Different Service
                 </MotionButton>
               </div>
 
-              {/* Calendly Embed */}
+              {/* Calendly Embed Container */}
               <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#D4A373]/20">
                 {isCalendlyLoaded ? (
-                  <div
-                    className="calendly-inline-widget"
-                    data-url={getCalendlyUrl()}
-                    style={{ minWidth: "320px", height: "700px" }}
-                  />
+                  <div>
+                    <div id="calendly-embed" style={{ minWidth: "320px", height: "700px" }} />
+
+                    {/* Fallback message */}
+                    <div className="p-6 text-center bg-[#FAEDCD]/30 border-t border-[#D4A373]/20">
+                      <p className="text-[#606C38] text-sm mb-2">Having trouble with the calendar?</p>
+                      <p className="text-[#283618] text-xs">
+                        You can also book directly by calling <strong>508-215-7462</strong> or emailing{" "}
+                        <strong>SaintedHandsbyJCM@gmail.com</strong>
+                      </p>
+                    </div>
+                  </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-96 bg-[#FEFAE0]">
                     <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
