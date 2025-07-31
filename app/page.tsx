@@ -16,11 +16,11 @@ const CloseIcon = () => (
   </svg>
 )
 
-const FacebookIcon = () => (
+const InstagramIcon = () => (
   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
     <path
       fillRule="evenodd"
-      d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+      d="M12.017 0C8.396 0 7.929.01 7.102.048 6.273.088 5.718.222 5.233.42a7.762 7.762 0 0 0-2.812 1.83A7.847 7.847 0 0 0 .42 5.233C.222 5.718.087 6.273.048 7.102.01 7.929 0 8.396 0 12.017c0 3.624.01 4.09.048 4.918.039.83.174 1.384.372 1.87.204.48.478.923.923 1.417.444.445.887.719 1.416.923.487.198 1.041.333 1.87.372C7.929 23.99 8.396 24 12.017 24c3.624 0 4.09-.01 4.918-.048.83-.04 1.384-.174 1.87-.372a7.847 7.847 0 0 0 1.416-.923c.445-.444.719-.887.923-1.416.198-.487.333-1.041.372-1.87.04-.83.048-1.295.048-4.918 0-3.621-.01-4.088-.048-4.918-.04-.83-.174-1.384-.372-1.87a7.762 7.762 0 0 0-.923-1.416A7.847 7.847 0 0 0 18.804.42c-.487-.198-1.041-.333-1.87-.372C16.107.01 15.64 0 12.017 0zM12.017 2.13c3.557 0 3.98.01 4.787.048.677.03 1.126.142 1.39.236.35.136.6.3.863.564.264.263.428.513.564.863.094.264.206.713.236 1.39.038.808.047 1.23.047 4.787 0 3.557-.01 3.98-.047 4.787-.03.677-.142 1.126-.236 1.39a2.32 2.32 0 0 1-.564.863 2.32 2.32 0 0 1-.863.564c-.264.094-.713.206-1.39.236-.808.038-1.23.047-4.787.047-3.557 0-3.98-.01-4.787-.047-.677-.03-1.126-.142-1.39-.236a2.32 2.32 0 0 1-.863-.564 2.32 2.32 0 0 1-.564-.863c-.094-.264-.206-.713-.236-1.39-.038-.808-.047-1.23-.047-4.787 0-3.557.01-3.98.047-4.787.03-.677.142-1.126.236-1.39.136-.35.3-.6.564-.863a2.32 2.32 0 0 1 .863-.564c.264-.094.713-.206 1.39-.236.808-.038 1.23-.047 4.787-.047zm0 3.623a6.264 6.264 0 1 0 0 12.528 6.264 6.264 0 0 0 0-12.528zM12.017 9.405a2.612 2.612 0 1 1 0 5.224 2.612 2.612 0 0 1 0-5.224zm5.13-.481a1.464 1.464 0 1 1-2.928 0 1.464 1.464 0 0 1 2.928 0z"
       clipRule="evenodd"
     />
   </svg>
@@ -71,56 +71,37 @@ const CreditCardIcon = () => (
   </svg>
 )
 
-// --- Sacred Geometry Icons ---
-const GeoIconPersonal = () => (
-  <svg width="32" height="32" viewBox="0 0 100 100" className="text-[#D4A373]">
-    <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="50" cy="50" r="20" stroke="currentColor" strokeWidth="3" fill="none" />
-    <path d="M50 10 V 90 M10 50 H 90" stroke="currentColor" strokeWidth="3" />
-    <path d="M22 22 L 78 78 M22 78 L 78 22" stroke="currentColor" strokeWidth="3" />
-  </svg>
+// --- Enhancement Product Icons ---
+const MassageGunIcon = () => (
+  <div className="w-8 h-8 bg-[#D4A373] rounded-lg flex items-center justify-center">
+    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2L8 6h3v10h2V6h3l-4-4z" />
+      <circle cx="12" cy="18" r="2" />
+    </svg>
+  </div>
 )
 
-const GeoIconDeepTissue = () => (
-  <svg width="32" height="32" viewBox="0 0 100 100" className="text-[#D4A373]">
-    <path d="M50,10 L90,50 L50,90 L10,50 Z" stroke="currentColor" strokeWidth="3" fill="none" />
-    <path d="M50,20 L80,50 L50,80 L20,50 Z" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.7" />
-    <path d="M50,30 L70,50 L50,70 L30,50 Z" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.4" />
-  </svg>
+const CuppingIcon = () => (
+  <div className="w-8 h-8 bg-[#D4A373] rounded-full flex items-center justify-center">
+    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7z" />
+    </svg>
+  </div>
 )
 
-const GeoIconRTR = () => (
-  <svg width="32" height="32" viewBox="0 0 100 100" className="text-[#D4A373]">
-    <path
-      d="M50 10 L 60 40 L 90 40 L 65 60 L 75 90 L 50 70 L 25 90 L 35 60 L 10 40 L 40 40 Z"
-      stroke="currentColor"
-      strokeWidth="3"
-      fill="none"
-    />
-  </svg>
+const HotStoneIcon = () => (
+  <div className="w-8 h-8 bg-[#D4A373] rounded-lg flex items-center justify-center">
+    <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+      <ellipse cx="12" cy="12" rx="8" ry="4" />
+      <ellipse cx="12" cy="8" rx="6" ry="3" />
+    </svg>
+  </div>
 )
 
-const GeoIconCupping = () => (
-  <svg width="32" height="32" viewBox="0 0 100 100" className="text-[#D4A373]">
-    <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="50" cy="30" r="10" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="35" cy="60" r="10" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="65" cy="60" r="10" stroke="currentColor" strokeWidth="3" fill="none" />
-  </svg>
-)
-
-const GeoIconHotStones = () => (
-  <svg width="32" height="32" viewBox="0 0 100 100" className="text-[#D4A373]">
-    <rect x="20" y="20" width="60" height="60" rx="10" stroke="currentColor" strokeWidth="3" fill="none" />
-    <circle cx="50" cy="50" r="15" stroke="currentColor" strokeWidth="3" fill="none" />
-  </svg>
-)
-
-const GeoIconTarot = () => (
-  <svg width="32" height="32" viewBox="0 0 100 100" className="text-[#D4A373]">
-    <path d="M30 10 H 70 L 70 90 H 30 Z" stroke="currentColor" strokeWidth="3" fill="none" />
-    <path d="M50 25 L 60 45 L 50 65 L 40 45 Z" stroke="currentColor" strokeWidth="3" fill="none" />
-  </svg>
+const ScalarMachineIcon = () => (
+  <div className="w-8 h-8 bg-[#D4A373] rounded-lg flex items-center justify-center overflow-hidden">
+    <img src="/images/spooky2-scalar.png" alt="Scalar Machine" className="w-full h-full object-cover" />
+  </div>
 )
 
 const FlowerOfLifeBackground = () => (
@@ -165,7 +146,6 @@ const servicesData = [
     id: "personal",
     title: "Customized/Personal Massage",
     description: "A session tailored specifically to your needs, addressing your unique concerns and goals.",
-    icon: <GeoIconPersonal />,
     imgSrc: "/images/customizedpersonalmassage.webp",
     details: {
       bestFor:
@@ -178,7 +158,6 @@ const servicesData = [
     id: "deep-tissue",
     title: "Deep Tissue",
     description: "Targets deeper layers of muscle and connective tissue. Ideal for chronic aches and pains.",
-    icon: <GeoIconDeepTissue />,
     imgSrc: "/images/deeptissue.webp",
     details: {
       bestFor:
@@ -191,8 +170,7 @@ const servicesData = [
     id: "rtr",
     title: "Rapid Tension Release (RTR)",
     description: "Utilizes advanced techniques to quickly alleviate muscle tightness and improve flexibility.",
-    icon: <GeoIconRTR />,
-    imgSrc: "/images/rtr-before-after.webp",
+    imgSrc: "/images/massagegunRTR.jpeg",
     details: {
       bestFor:
         "Athletes preparing for or recovering from events, acute muscle tightness and spasms, improving range of motion quickly, breaking through stubborn knots, pre-workout preparation, post-workout recovery, addressing specific problem areas, and anyone needing fast, effective tension relief.",
@@ -204,8 +182,7 @@ const servicesData = [
     id: "cupping",
     title: "Cupping",
     description: "An ancient form of alternative medicine to help with pain, inflammation, and blood flow.",
-    icon: <GeoIconCupping />,
-    imgSrc: "/images/cupping.webp",
+    imgSrc: "/images/electronicmassagecup.jpeg",
     details: {
       bestFor:
         "Pain relief and muscle tension, reducing inflammation and swelling, improving circulation and lymphatic drainage, respiratory issues and congestion, digestive problems, stress and anxiety relief, cellulite reduction, detoxification support, and enhancing athletic performance and recovery.",
@@ -217,7 +194,6 @@ const servicesData = [
     id: "hot-stones",
     title: "Hot Stones",
     description: "Heated stones are placed on the body to ease muscle stiffness and increase circulation.",
-    icon: <GeoIconHotStones />,
     imgSrc: "/images/hotstone.webp",
     details: {
       bestFor:
@@ -230,8 +206,7 @@ const servicesData = [
     id: "tarot",
     title: "Cacao & Tarot Reading",
     description: "A unique session combining the heart-opening properties of cacao with intuitive tarot guidance.",
-    icon: <GeoIconTarot />,
-    imgSrc: "/images/tarotreading.webp",
+    imgSrc: "/images/tarot.jpeg",
     details: {
       bestFor:
         "Gaining clarity on life decisions and direction, spiritual connection and personal growth, setting intentions and manifesting goals, processing emotional challenges, exploring relationships and career paths, connecting with intuition, celebrating transitions and new beginnings, and seeking guidance during uncertain times.",
@@ -458,14 +433,13 @@ const Header = ({ setPage, onServiceSelect, isVisible }: any) => {
 }
 
 const HeroSection = ({ setPage, images }: any) => {
-  const headlineText = "Thank You for Honoring Your Body"
-  const sentence = headlineText.split(" ")
+  const headlineText = ["Thank You for Honoring", "Your Body"]
   const sentenceVariants = { animate: { transition: { staggerChildren: 0.1, delayChildren: 2.5 } } }
   const letterVariants = { initial: { y: 20, opacity: 0 }, animate: { y: 0, opacity: 1 } }
 
   return (
     <motion.section
-      className="h-screen flex items-center justify-center text-center relative overflow-hidden bg-[#FEFAE0] bg-cover bg-center"
+      className="h-screen flex flex-col justify-between items-center text-center relative overflow-hidden bg-[#FEFAE0] bg-cover bg-center"
       style={{ backgroundImage: `url(${images.hero})` }}
       initial={{ clipPath: "circle(0% at 50% 50%)" }}
       animate={{ clipPath: "circle(150% at 50% 50%)" }}
@@ -473,18 +447,27 @@ const HeroSection = ({ setPage, images }: any) => {
     >
       <div className="absolute inset-0 bg-[#FEFAE0]/60"></div>
       <FlowerOfLifeBackground />
-      <div className="container mx-auto px-6 relative z-10">
+
+      {/* Top spacer */}
+      <div className="flex-1"></div>
+
+      {/* Main content in the center */}
+      <div className="container mx-auto px-6 relative z-10 flex-1 flex flex-col justify-center">
         <motion.h1
           variants={sentenceVariants}
           initial="initial"
           animate="animate"
-          className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#283618] mb-6 leading-tight font-serif"
+          className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#283618] mb-6 leading-tight font-serif text-center"
           style={{ textShadow: "2px 2px 4px rgba(254,250,224,0.8)" }}
         >
-          {sentence.map((word, i) => (
-            <motion.span key={i} variants={letterVariants} className="inline-block mr-4">
-              {word}
-            </motion.span>
+          {headlineText.map((line, lineIndex) => (
+            <div key={lineIndex}>
+              {line.split(" ").map((word, wordIndex) => (
+                <motion.span key={`${lineIndex}-${wordIndex}`} variants={letterVariants} className="inline-block mr-4">
+                  {word}
+                </motion.span>
+              ))}
+            </div>
           ))}
         </motion.h1>
 
@@ -493,13 +476,22 @@ const HeroSection = ({ setPage, images }: any) => {
           initial="initial"
           animate="animate"
           transition={{ delay: 3 }}
-          className="text-xl md:text-2xl lg:text-3xl text-[#283618] max-w-3xl mx-auto mb-10 font-bold font-serif"
+          className="text-lg md:text-xl lg:text-2xl text-[#283618] max-w-3xl mx-auto font-bold font-serif text-center"
           style={{ textShadow: "2px 2px 4px rgba(254,250,224,0.9)" }}
         >
           "Your body is Your Temple."
         </motion.p>
+      </div>
 
-        <motion.div variants={fadeInUp} initial="initial" animate="animate" transition={{ delay: 3.2 }}>
+      {/* Button at the bottom */}
+      <div className="container mx-auto px-6 relative z-10 pb-16">
+        <motion.div
+          variants={fadeInUp}
+          initial="initial"
+          animate="animate"
+          transition={{ delay: 3.2 }}
+          className="text-center"
+        >
           <MotionButton
             onClick={() => setPage("booking")}
             className="bg-[#BC6C25] text-white font-bold py-3 px-8 rounded-full hover:bg-[#D4A373] transition-colors text-lg shadow-lg"
@@ -512,41 +504,78 @@ const HeroSection = ({ setPage, images }: any) => {
   )
 }
 
-const ServicesSection = ({ onServiceSelect, services }: any) => (
-  <motion.section
-    className="py-20 bg-[#FEFAE0]"
-    initial="initial"
-    whileInView="animate"
-    viewport={{ once: true, amount: 0.2 }}
-    variants={staggerContainer}
-  >
-    <div className="container mx-auto px-6">
-      <motion.div variants={fadeInUp} className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-bold text-[#283618] font-serif">Services Offered</h2>
-        <p className="text-lg text-[#606C38] mt-4 max-w-2xl mx-auto">
-          A range of therapies designed to restore balance and promote well-being.
-        </p>
-      </motion.div>
+const ServicesSection = ({ onServiceSelect, services }: any) => {
+  const [expandedService, setExpandedService] = useState<string | null>(null)
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.map((service: any) => (
-          <motion.div
-            key={service.id}
-            variants={fadeInUp}
-            className="bg-[#FAEDCD]/50 rounded-2xl text-center border border-[#D4A373]/20 hover:shadow-xl transition-shadow duration-300 cursor-pointer overflow-hidden"
-            onClick={() => onServiceSelect(service)}
-          >
-            <img src={service.imgSrc || "/placeholder.svg"} alt={service.title} className="w-full h-48 object-cover" />
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-[#606C38] mb-2 font-serif">{service.title}</h3>
-              <p className="text-[#283618]/80">{service.description}</p>
-            </div>
-          </motion.div>
-        ))}
+  return (
+    <motion.section
+      className="py-20 bg-[#FEFAE0]"
+      initial="initial"
+      whileInView="animate"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={staggerContainer}
+    >
+      <div className="container mx-auto px-6">
+        <motion.div variants={fadeInUp} className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#283618] font-serif">Services Offered</h2>
+          <p className="text-lg text-[#606C38] mt-4 max-w-2xl mx-auto">
+            A range of therapies designed to restore balance and promote well-being.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service: any) => (
+            <motion.div
+              key={service.id}
+              variants={fadeInUp}
+              className="bg-[#FAEDCD]/50 rounded-2xl text-center border border-[#D4A373]/20 hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+            >
+              <img
+                src={service.imgSrc || "/placeholder.svg"}
+                alt={service.title}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <MotionButton
+                  onClick={() => setExpandedService(expandedService === service.id ? null : service.id)}
+                  className="w-full text-left"
+                >
+                  <h3 className="text-xl font-bold text-[#606C38] mb-2 font-serif hover:text-[#BC6C25] transition-colors">
+                    {service.title}
+                  </h3>
+                </MotionButton>
+
+                <AnimatePresence>
+                  {expandedService === service.id && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-[#283618]/80 mb-4">{service.description}</p>
+                      <MotionButton
+                        onClick={() => onServiceSelect(service)}
+                        className="bg-[#D4A373] text-white px-4 py-2 rounded-full hover:bg-[#BC6C25] transition-colors text-sm"
+                      >
+                        Learn More & Book
+                      </MotionButton>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {expandedService !== service.id && (
+                  <p className="text-[#283618]/60 text-sm">Click title to read more...</p>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </div>
-  </motion.section>
-)
+    </motion.section>
+  )
+}
 
 const SpecialOfferSection = ({ setPage, images }: any) => (
   <motion.section
@@ -560,10 +589,14 @@ const SpecialOfferSection = ({ setPage, images }: any) => (
     <div className="bg-[#FAEDCD]/70 py-16">
       <div className="container mx-auto px-6 text-center">
         <div className="relative z-10">
+          <div className="inline-block bg-[#BC6C25] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+            Limited Time Promotion
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-[#606C38] mb-4 font-serif">Special Discounted Package</h2>
           <p className="text-[#283618] mb-2 text-xl">1 hour ($100) or 90 min ($130)</p>
           <p className="text-[#606C38] mb-8 max-w-xl mx-auto">
-            Includes a 1hr or 1.5hr massage, 1 enhancement of your choice, and 1 optional special random oil or lotion.
+            Includes a 1hr or 1.5hr massage with any enhancement of your choice, and 1 optional special random oil or
+            lotion.
           </p>
           <MotionButton
             onClick={() => setPage("booking")}
@@ -583,12 +616,12 @@ const Footer = () => (
       <p>&copy; {new Date().getFullYear()} Sainted Hands. All Rights Reserved.</p>
       <div className="flex justify-center mt-4">
         <a
-          href="https://www.facebook.com/johncarlo.madrio"
+          href="https://www.instagram.com/saintedhandsbyjcm?igsh=Z25wNnhlaGpvOWcx"
           target="_blank"
           rel="noopener noreferrer"
           className="hover:text-[#BC6C25] transition-colors"
         >
-          <FacebookIcon />
+          <InstagramIcon />
         </a>
       </div>
     </div>
@@ -693,20 +726,39 @@ const ServicesPage = ({ initialService, setPage, services }: any) => {
                   <ExpandableContent title="What are enhancements offered?">
                     <div className="space-y-4">
                       <p>
-                        Enhancements are different modalities of massage therapy that offers unique experiences added on
-                        during the massage session.
+                        I offer massage therapy sessions with different enhancement. Enhancements can be added on for
+                        every session. Enhancements are different modalities of massage therapy that offers unique
+                        experiences added on during the massage session.
                       </p>
                       <p>
                         <strong>Rapid Tension Release</strong> - is a massage modality focused on quickly relieving
                         muscle tension and pain through targeted techniques. During the session the therapist is going
-                        to use a theragun that has hot and cold features creating either a feeling of an ice pack on the
-                        targeted area or a single hot stone while the massage gun softens the tissue.
+                        to use a{" "}
+                        <a
+                          href="https://a.co/d/3M0vcJJ"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#BC6C25] font-semibold hover:text-[#D4A373] underline transition-colors"
+                        >
+                          theragun
+                        </a>{" "}
+                        that has hot and cold features creating either a feeling of an ice pack on the targeted area or
+                        a single hot stone while the massage gun softens the tissue.
                       </p>
                       <p>
                         <strong>Cupping Massage</strong> - a therapeutic technique where special cups are placed on the
                         skin to create suction. This modality aims to promote blood flow, reduce muscle tension, and
-                        alleviate pain. The cups being used by the massage therapist is an electric cup with a red light
-                        feature that adds heat to the cups and further promotes healing.
+                        alleviate pain. The{" "}
+                        <a
+                          href="https://a.co/d/df7NdhH"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#BC6C25] font-semibold hover:text-[#D4A373] underline transition-colors"
+                        >
+                          cups
+                        </a>{" "}
+                        being used by the massage therapist is an electric cup with a red light feature that adds heat
+                        to the cups and further promotes healing.
                       </p>
                       <p>
                         <strong>Hot Stones Therapy</strong> - a massage modality that uses smooth, heated stones,
@@ -779,13 +831,13 @@ const ContactPage = () => (
               <strong>Email:</strong> SaintedHandsbyJCM@gmail.com
             </p>
             <a
-              href="https://www.facebook.com/johncarlo.madrio"
+              href="https://www.instagram.com/saintedhandsbyjcm?igsh=Z25wNnhlaGpvOWcx"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center text-[#606C38] hover:text-[#BC6C25] transition-colors"
             >
-              <FacebookIcon />
-              <span className="ml-2">Facebook</span>
+              <InstagramIcon />
+              <span className="ml-2">Instagram</span>
             </a>
           </motion.div>
 
@@ -862,7 +914,7 @@ const BookingPage = () => {
             duration: 60,
             scheduling_url: "https://calendly.com/saintedhandsbyjcm",
             description_plain:
-              "Perfect for targeted relief and relaxation. Includes 1-hour massage + 1 enhancement of your choice + special oil/lotion.",
+              "Perfect for targeted relief and relaxation. Includes 1-hour massage with any enhancement of your choice + special oil/lotion.",
             price: "$100",
           },
           {
@@ -870,7 +922,7 @@ const BookingPage = () => {
             duration: 90,
             scheduling_url: "https://calendly.com/saintedhandsbyjcm",
             description_plain:
-              "Extended session for deep healing and ultimate relaxation. Includes 90-minute massage + 1 enhancement of your choice + special oil/lotion.",
+              "Extended session for deep healing and ultimate relaxation. Includes 90-minute massage with any enhancement of your choice + special oil/lotion.",
             price: "$130",
           },
         ])
@@ -961,6 +1013,15 @@ const BookingPage = () => {
     return "Contact for duration"
   }
 
+  const getEventDescription = (event: any) => {
+    if (event.name?.includes("1 Hour") || event.duration === 60) {
+      return "1 hour package with any enhancement of choice"
+    } else if (event.name?.includes("90") || event.duration === 90) {
+      return "90 minute package with any enhancement of choice"
+    }
+    return event.description_plain || "Professional massage therapy session tailored to your needs."
+  }
+
   return (
     <PageWrapper>
       <div className="pt-32 pb-16 bg-[#FEFAE0] min-h-screen">
@@ -987,7 +1048,12 @@ const BookingPage = () => {
           ) : !selectedEvent ? (
             // Event Selection
             <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-              <h2 className="text-2xl font-bold text-center mb-8 font-serif text-[#283618]">Choose Your Service</h2>
+              <div className="text-center mb-8">
+                <div className="inline-block bg-[#BC6C25] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                  Limited Time Promotion
+                </div>
+                <h2 className="text-2xl font-bold font-serif text-[#283618]">Choose Your Service</h2>
+              </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                 {calendlyEvents.map((event, index) => (
@@ -1004,9 +1070,7 @@ const BookingPage = () => {
                     </div>
                     <p className="text-4xl font-bold text-[#D4A373] mb-4">{getEventPrice(event)}</p>
                     <p className="text-[#606C38] mb-4">Duration: {getEventDuration(event)}</p>
-                    <p className="text-[#606C38] mb-6 text-sm">
-                      {event.description_plain || "Professional massage therapy session tailored to your needs."}
-                    </p>
+                    <p className="text-[#606C38] mb-6 text-sm">{getEventDescription(event)}</p>
                     <div className="bg-[#D4A373] text-white py-3 px-6 rounded-full font-semibold group-hover:bg-[#BC6C25] transition-colors">
                       Select This Service
                     </div>
@@ -1019,22 +1083,21 @@ const BookingPage = () => {
                 <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Available Enhancements</h4>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-[#606C38]">
                   <div className="flex flex-col items-center">
-                    <GeoIconRTR />
+                    <MassageGunIcon />
                     <span className="mt-1 font-semibold">Rapid Tension Release</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <GeoIconCupping />
+                    <CuppingIcon />
                     <span className="mt-1 font-semibold">Cupping Therapy</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <GeoIconHotStones />
+                    <HotStoneIcon />
                     <span className="mt-1 font-semibold">Hot Stones</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 rounded-full bg-[#D4A373] flex items-center justify-center text-white text-xs font-bold">
-                      SM
-                    </div>
+                    <ScalarMachineIcon />
                     <span className="mt-1 font-semibold">Scalar Machine</span>
+                    <span className="text-xs text-[#BC6C25] font-semibold">(Office Only)</span>
                   </div>
                 </div>
               </div>
@@ -1044,10 +1107,13 @@ const BookingPage = () => {
             <motion.div variants={fadeInUp} className="max-w-5xl mx-auto">
               {/* Selected Service Header */}
               <div className="bg-[#FAEDCD]/50 p-6 rounded-2xl border border-[#D4A373]/20 mb-8 text-center">
+                <div className="inline-block bg-[#BC6C25] text-white px-3 py-1 rounded-full text-xs font-semibold mb-2">
+                  Limited Time Promotion
+                </div>
                 <h3 className="text-xl font-bold text-[#283618] font-serif mb-2">{selectedEvent.name}</h3>
                 <p className="text-2xl font-bold text-[#D4A373] mb-2">{getEventPrice(selectedEvent)}</p>
                 <p className="text-[#606C38] text-sm mb-4">
-                  Duration: {getEventDuration(selectedEvent)} | Professional massage therapy
+                  Duration: {getEventDuration(selectedEvent)} | {getEventDescription(selectedEvent)}
                 </p>
                 <MotionButton
                   onClick={() => setSelectedEvent(null)}
@@ -1134,8 +1200,8 @@ export default function App() {
   const [page, setPage] = useState("home")
   const [initialService, setInitialService] = useState(null)
   const [images, setImages] = useState({
-    hero: "/images/massagebedmainlandingpage.webp",
-    offer: "/images/massagebedmainlandingpage.webp",
+    hero: "/images/massagetable.jpeg",
+    offer: "/images/massagetable.jpeg",
     profile: "/images/profile.jpeg",
   })
   const [services, setServices] = useState(servicesData)
