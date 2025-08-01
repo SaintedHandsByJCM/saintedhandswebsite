@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { ZapIcon } from "lucide-react" // Import ZapIcon
 
 // --- SVG Icon Components ---
 const MenuIcon = () => (
@@ -99,8 +100,8 @@ const HotStoneIcon = () => (
 )
 
 const ScalarMachineIcon = () => (
-  <div className="w-8 h-8 bg-[#D4A373] rounded-lg flex items-center justify-center overflow-hidden">
-    <img src="/images/spooky2-scalar.png" alt="Scalar Machine" className="w-full h-full object-cover" />
+  <div className="w-8 h-8 bg-[#D4A373] rounded-lg flex items-center justify-center">
+    <ZapIcon className="w-5 h-5 text-white" />
   </div>
 )
 
@@ -432,77 +433,64 @@ const Header = ({ setPage, onServiceSelect, isVisible }: any) => {
   )
 }
 
-const HeroSection = ({ setPage, images }: any) => {
-  const headlineText = ["Thank You for Honoring", "Your Body"]
-  const sentenceVariants = { animate: { transition: { staggerChildren: 0.1, delayChildren: 2.5 } } }
-  const letterVariants = { initial: { y: 20, opacity: 0 }, animate: { y: 0, opacity: 1 } }
+const HeroSection = ({ setPage, images }: any) => (
+  <motion.section
+    className="h-screen flex flex-col justify-between items-center text-center relative overflow-hidden bg-[#FEFAE0] bg-cover bg-center"
+    style={{ backgroundImage: `url(${images.hero})` }}
+    initial={{ clipPath: "circle(0% at 50% 50%)" }}
+    animate={{ clipPath: "circle(150% at 50% 50%)" }}
+    transition={{ duration: 2.5, ease: [0.76, 0, 0.24, 1], delay: 1.5 }}
+  >
+    <div className="absolute inset-0 bg-[#FEFAE0]/60"></div>
+    <FlowerOfLifeBackground />
 
-  return (
-    <motion.section
-      className="h-screen flex flex-col justify-between items-center text-center relative overflow-hidden bg-[#FEFAE0] bg-cover bg-center"
-      style={{ backgroundImage: `url(${images.hero})` }}
-      initial={{ clipPath: "circle(0% at 50% 50%)" }}
-      animate={{ clipPath: "circle(150% at 50% 50%)" }}
-      transition={{ duration: 2.5, ease: [0.76, 0, 0.24, 1], delay: 1.5 }}
-    >
-      <div className="absolute inset-0 bg-[#FEFAE0]/60"></div>
-      <FlowerOfLifeBackground />
+    {/* Top spacer */}
+    <div className="flex-1"></div>
 
-      {/* Top spacer */}
-      <div className="flex-1"></div>
+    {/* Main content in the center */}
+    <div className="container mx-auto px-6 relative z-10 flex-1 flex flex-col justify-center">
+      <motion.h1
+        className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#283618] mb-6 leading-tight font-serif text-center"
+        style={{ textShadow: "2px 2px 4px rgba(254,250,224,0.8)" }}
+      >
+        {"Thank You for Honoring Your Body".split(" ").map((word, wordIndex) => (
+          <motion.span key={wordIndex} className="inline-block mr-4">
+            {word}
+          </motion.span>
+        ))}
+      </motion.h1>
 
-      {/* Main content in the center */}
-      <div className="container mx-auto px-6 relative z-10 flex-1 flex flex-col justify-center">
-        <motion.h1
-          variants={sentenceVariants}
-          initial="initial"
-          animate="animate"
-          className="text-2xl md:text-4xl lg:text-5xl font-bold text-[#283618] mb-6 leading-tight font-serif text-center"
-          style={{ textShadow: "2px 2px 4px rgba(254,250,224,0.8)" }}
+      <motion.p
+        variants={fadeInUp}
+        initial="initial"
+        animate="animate"
+        transition={{ delay: 3 }}
+        className="text-lg md:text-xl lg:text-2xl text-[#283618] max-w-3xl mx-auto font-bold font-serif text-center"
+        style={{ textShadow: "2px 2px 4px rgba(254,250,224,0.9)" }}
+      >
+        "Your body is Your Temple."
+      </motion.p>
+    </div>
+
+    {/* Button at the bottom */}
+    <div className="container mx-auto px-6 relative z-10 pb-16">
+      <motion.div
+        variants={fadeInUp}
+        initial="initial"
+        animate="animate"
+        transition={{ delay: 3.2 }}
+        className="text-center"
+      >
+        <MotionButton
+          onClick={() => setPage("booking")}
+          className="bg-[#BC6C25] text-white font-bold py-3 px-8 rounded-full hover:bg-[#D4A373] transition-colors text-lg shadow-lg"
         >
-          {headlineText.map((line, lineIndex) => (
-            <div key={lineIndex}>
-              {line.split(" ").map((word, wordIndex) => (
-                <motion.span key={`${lineIndex}-${wordIndex}`} variants={letterVariants} className="inline-block mr-4">
-                  {word}
-                </motion.span>
-              ))}
-            </div>
-          ))}
-        </motion.h1>
-
-        <motion.p
-          variants={fadeInUp}
-          initial="initial"
-          animate="animate"
-          transition={{ delay: 3 }}
-          className="text-lg md:text-xl lg:text-2xl text-[#283618] max-w-3xl mx-auto font-bold font-serif text-center"
-          style={{ textShadow: "2px 2px 4px rgba(254,250,224,0.9)" }}
-        >
-          "Your body is Your Temple."
-        </motion.p>
-      </div>
-
-      {/* Button at the bottom */}
-      <div className="container mx-auto px-6 relative z-10 pb-16">
-        <motion.div
-          variants={fadeInUp}
-          initial="initial"
-          animate="animate"
-          transition={{ delay: 3.2 }}
-          className="text-center"
-        >
-          <MotionButton
-            onClick={() => setPage("booking")}
-            className="bg-[#BC6C25] text-white font-bold py-3 px-8 rounded-full hover:bg-[#D4A373] transition-colors text-lg shadow-lg"
-          >
-            Book Your Session
-          </MotionButton>
-        </motion.div>
-      </div>
-    </motion.section>
-  )
-}
+          Book Your Session
+        </MotionButton>
+      </motion.div>
+    </div>
+  </motion.section>
+)
 
 const ServicesSection = ({ onServiceSelect, services }: any) => {
   const [expandedService, setExpandedService] = useState<string | null>(null)
@@ -538,11 +526,21 @@ const ServicesSection = ({ onServiceSelect, services }: any) => {
               <div className="p-6">
                 <MotionButton
                   onClick={() => setExpandedService(expandedService === service.id ? null : service.id)}
-                  className="w-full text-left"
+                  className="w-full flex flex-col items-center justify-center" // Changed for centering
                 >
                   <h3 className="text-xl font-bold text-[#606C38] mb-2 font-serif hover:text-[#BC6C25] transition-colors">
                     {service.title}
                   </h3>
+                  {/* Add the dropdown icon */}
+                  <motion.svg
+                    className={`w-5 h-5 ml-2 text-[#BC6C25] transition-transform duration-300`}
+                    animate={{ rotate: expandedService === service.id ? 180 : 0 }}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  </motion.svg>
                 </MotionButton>
 
                 <AnimatePresence>
@@ -565,9 +563,7 @@ const ServicesSection = ({ onServiceSelect, services }: any) => {
                   )}
                 </AnimatePresence>
 
-                {expandedService !== service.id && (
-                  <p className="text-[#283618]/60 text-sm">Click title to read more...</p>
-                )}
+                {/* Removed the "Click title to read more..." text */}
               </div>
             </motion.div>
           ))}
@@ -799,9 +795,9 @@ const AboutPage = ({ images }: any) => (
           John Carlo Madrio
         </motion.h2>
         <motion.p variants={fadeInUp} className="text-lg text-[#606C38] mt-4 max-w-3xl mx-auto">
-          My philosophy is simple: "Thank You for Honoring Your Body, Your body is Your Temple." I am dedicated to
-          providing a healing space where you can release tension, restore balance, and reconnect with your body through
-          tailored, therapeutic massage.
+          I'm a very spiritual person that walks the path of benevolence and altruism. I'm a firm believer that
+          stretching (i.e. Yoga) and daily habits can form a healthy body. A holistic approach in massage therapy can go
+          a long way in creating a healthy body, mind and spirit.
         </motion.p>
       </motion.div>
     </div>
@@ -869,6 +865,7 @@ const BookingPage = () => {
   const [selectedEvent, setSelectedEvent] = useState<any>(null)
   const [isLoadingEvents, setIsLoadingEvents] = useState(true)
   const [userInfo, setUserInfo] = useState<any>(null)
+  const [paymentMethod, setPaymentMethod] = useState<"calendly" | "venmo">("calendly")
 
   // Calendly API configuration
   const CALENDLY_TOKEN =
@@ -936,24 +933,26 @@ const BookingPage = () => {
 
   // Load Calendly widget script
   useEffect(() => {
-    const script = document.createElement("script")
-    script.src = "https://assets.calendly.com/assets/external/widget.js"
-    script.onload = () => setIsCalendlyLoaded(true)
-    document.body.appendChild(script)
+    if (paymentMethod === "calendly") {
+      const script = document.createElement("script")
+      script.src = "https://assets.calendly.com/assets/external/widget.js"
+      script.onload = () => setIsCalendlyLoaded(true)
+      document.body.appendChild(script)
 
-    return () => {
-      const existingScript = document.querySelector(
-        'script[src="https://assets.calendly.com/assets/external/widget.js"]',
-      )
-      if (existingScript) {
-        document.body.removeChild(existingScript)
+      return () => {
+        const existingScript = document.querySelector(
+          'script[src="https://assets.calendly.com/assets/external/widget.js"]',
+        )
+        if (existingScript) {
+          document.body.removeChild(existingScript)
+        }
       }
     }
-  }, [])
+  }, [paymentMethod])
 
   // Initialize Calendly widget when event is selected
   useEffect(() => {
-    if (selectedEvent && isCalendlyLoaded) {
+    if (selectedEvent && isCalendlyLoaded && paymentMethod === "calendly") {
       const embedContainer = document.getElementById("calendly-embed")
       if (embedContainer) {
         // Clear previous embed
@@ -963,9 +962,9 @@ const BookingPage = () => {
         const calendlyUrl = new URL(selectedEvent.scheduling_url)
         calendlyUrl.searchParams.set("hide_event_type_details", "1")
         calendlyUrl.searchParams.set("hide_gdpr_banner", "1")
-        calendlyUrl.searchParams.set("background_color", "FEFAE0")
-        calendlyUrl.searchParams.set("text_color", "283618")
-        calendlyUrl.searchParams.set("primary_color", "D4A373")
+        calendlyUrl.searchParams.set("background_color", "FEFAE0") // Light beige
+        calendlyUrl.searchParams.set("text_color", "283618") // Dark green/brown
+        calendlyUrl.searchParams.set("primary_color", "D4A373") // Light brown/orange
 
         // Use advanced JavaScript embed for better control
         if (window.Calendly) {
@@ -994,7 +993,7 @@ const BookingPage = () => {
         }
       }
     }
-  }, [selectedEvent, isCalendlyLoaded])
+  }, [selectedEvent, isCalendlyLoaded, paymentMethod])
 
   const getEventPrice = (event: any) => {
     // Extract price from event name or description
@@ -1038,115 +1037,165 @@ const BookingPage = () => {
             through our booking system.
           </motion.p>
 
-          {isLoadingEvents ? (
-            // Loading State
-            <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center py-20">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
-              <span className="text-[#606C38] font-semibold">Loading available appointments...</span>
-              <p className="text-[#283618] text-sm mt-2">Connecting to booking system</p>
-            </motion.div>
-          ) : !selectedEvent ? (
-            // Event Selection
-            <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-              <div className="text-center mb-8">
-                <div className="inline-block bg-[#BC6C25] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                  Limited Time Promotion
-                </div>
-                <h2 className="text-2xl font-bold font-serif text-[#283618]">Choose Your Service</h2>
-              </div>
+          {/* Payment Method Tabs */}
+          <div className="flex justify-center mb-8">
+            <MotionButton
+              onClick={() => setPaymentMethod("calendly")}
+              className={`px-6 py-3 rounded-l-full font-semibold transition-colors ${
+                paymentMethod === "calendly"
+                  ? "bg-[#D4A373] text-white"
+                  : "bg-[#FAEDCD] text-[#606C38] hover:bg-[#D4A373]/30"
+              }`}
+            >
+              Book via Calendly
+            </MotionButton>
+            <MotionButton
+              onClick={() => setPaymentMethod("venmo")}
+              className={`px-6 py-3 rounded-r-full font-semibold transition-colors ${
+                paymentMethod === "venmo"
+                  ? "bg-[#D4A373] text-white"
+                  : "bg-[#FAEDCD] text-[#606C38] hover:bg-[#D4A373]/30"
+              }`}
+            >
+              Pay with Venmo
+            </MotionButton>
+          </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                {calendlyEvents.map((event, index) => (
-                  <motion.div
-                    key={event.uri || index}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => setSelectedEvent(event)}
-                    className="bg-[#FAEDCD]/50 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
-                  >
-                    <div className="flex items-center justify-center mb-4">
-                      <ClockIcon />
-                      <h3 className="text-2xl font-bold text-[#283618] font-serif">{event.name}</h3>
+          {paymentMethod === "calendly" && (
+            <>
+              {isLoadingEvents ? (
+                // Loading State
+                <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center py-20">
+                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
+                  <span className="text-[#606C38] font-semibold">Loading available appointments...</span>
+                  <p className="text-[#283618] text-sm mt-2">Connecting to booking system</p>
+                </motion.div>
+              ) : !selectedEvent ? (
+                // Event Selection
+                <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
+                  <div className="text-center mb-8">
+                    <div className="inline-block bg-[#BC6C25] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                      Limited Time Promotion
                     </div>
-                    <p className="text-4xl font-bold text-[#D4A373] mb-4">{getEventPrice(event)}</p>
-                    <p className="text-[#606C38] mb-4">Duration: {getEventDuration(event)}</p>
-                    <p className="text-[#606C38] mb-6 text-sm">{getEventDescription(event)}</p>
-                    <div className="bg-[#D4A373] text-white py-3 px-6 rounded-full font-semibold group-hover:bg-[#BC6C25] transition-colors">
-                      Select This Service
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                    <h2 className="text-2xl font-bold font-serif text-[#283618]">Choose Your Service</h2>
+                  </div>
 
-              {/* Enhancement Options */}
-              <div className="bg-[#FAEDCD]/30 p-6 rounded-2xl border border-[#D4A373]/20 text-center">
-                <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Available Enhancements</h4>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-[#606C38]">
-                  <div className="flex flex-col items-center">
-                    <MassageGunIcon />
-                    <span className="mt-1 font-semibold">Rapid Tension Release</span>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                    {calendlyEvents.map((event, index) => (
+                      <motion.div
+                        key={event.uri || index}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        onClick={() => setSelectedEvent(event)}
+                        className="bg-[#FAEDCD]/50 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
+                      >
+                        <div className="flex items-center justify-center mb-4">
+                          <ClockIcon />
+                          <h3 className="text-2xl font-bold text-[#283618] font-serif">{event.name}</h3>
+                        </div>
+                        <p className="text-4xl font-bold text-[#D4A373] mb-4">{getEventPrice(event)}</p>
+                        <p className="text-[#606C38] mb-4">Duration: {getEventDuration(event)}</p>
+                        <p className="text-[#606C38] mb-6 text-sm">{getEventDescription(event)}</p>
+                        <div className="bg-[#D4A373] text-white py-3 px-6 rounded-full font-semibold group-hover:bg-[#BC6C25] transition-colors">
+                          Select This Service
+                        </div>
+                      </motion.div>
+                    ))}
                   </div>
-                  <div className="flex flex-col items-center">
-                    <CuppingIcon />
-                    <span className="mt-1 font-semibold">Cupping Therapy</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <HotStoneIcon />
-                    <span className="mt-1 font-semibold">Hot Stones</span>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <ScalarMachineIcon />
-                    <span className="mt-1 font-semibold">Scalar Machine</span>
-                    <span className="text-xs text-[#BC6C25] font-semibold">(Office Only)</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            // Calendly Booking Interface
-            <motion.div variants={fadeInUp} className="max-w-5xl mx-auto">
-              {/* Selected Service Header */}
-              <div className="bg-[#FAEDCD]/50 p-6 rounded-2xl border border-[#D4A373]/20 mb-8 text-center">
-                <div className="inline-block bg-[#BC6C25] text-white px-3 py-1 rounded-full text-xs font-semibold mb-2">
-                  Limited Time Promotion
-                </div>
-                <h3 className="text-xl font-bold text-[#283618] font-serif mb-2">{selectedEvent.name}</h3>
-                <p className="text-2xl font-bold text-[#D4A373] mb-2">{getEventPrice(selectedEvent)}</p>
-                <p className="text-[#606C38] text-sm mb-4">
-                  Duration: {getEventDuration(selectedEvent)} | {getEventDescription(selectedEvent)}
-                </p>
-                <MotionButton
-                  onClick={() => setSelectedEvent(null)}
-                  className="inline-flex items-center text-[#606C38] hover:text-[#BC6C25] transition-colors text-sm"
-                >
-                  <BackIcon />
-                  Choose Different Service
-                </MotionButton>
-              </div>
 
-              {/* Calendly Embed Container */}
-              <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#D4A373]/20">
-                {isCalendlyLoaded ? (
-                  <div>
-                    <div id="calendly-embed" style={{ minWidth: "320px", height: "700px" }} />
-
-                    {/* Fallback message */}
-                    <div className="p-6 text-center bg-[#FAEDCD]/30 border-t border-[#D4A373]/20">
-                      <p className="text-[#606C38] text-sm mb-2">Having trouble with the calendar?</p>
-                      <p className="text-[#283618] text-xs">
-                        You can also book directly by calling <strong>508-215-7462</strong> or emailing{" "}
-                        <strong>SaintedHandsbyJCM@gmail.com</strong>
-                      </p>
+                  {/* Enhancement Options */}
+                  <div className="bg-[#FAEDCD]/30 p-6 rounded-2xl border border-[#D4A373]/20 text-center">
+                    <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Available Enhancements</h4>
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-[#606C38]">
+                      <div className="flex flex-col items-center">
+                        <MassageGunIcon />
+                        <span className="mt-1 font-semibold">Rapid Tension Release</span>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <CuppingIcon />
+                        <span className="mt-1 font-semibold">Cupping Therapy</span>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <HotStoneIcon />
+                        <span className="mt-1 font-semibold">Hot Stones</span>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <ScalarMachineIcon />
+                        <span className="mt-1 font-semibold">Scalar Machine</span>
+                        <span className="text-xs text-[#BC6C25] font-semibold">(Office Only)</span>
+                      </div>
                     </div>
                   </div>
-                ) : (
-                  <div className="flex flex-col items-center justify-center h-96 bg-[#FEFAE0]">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
-                    <span className="text-[#606C38] font-semibold">Loading booking calendar...</span>
-                    <p className="text-[#283618] text-sm mt-2">This may take a few moments</p>
+                </motion.div>
+              ) : (
+                // Calendly Booking Interface
+                <motion.div variants={fadeInUp} className="max-w-5xl mx-auto">
+                  {/* Selected Service Header */}
+                  <div className="bg-[#FAEDCD]/50 p-6 rounded-2xl border border-[#D4A373]/20 mb-8 text-center">
+                    <div className="inline-block bg-[#BC6C25] text-white px-3 py-1 rounded-full text-xs font-semibold mb-2">
+                      Limited Time Promotion
+                    </div>
+                    <h3 className="text-xl font-bold text-[#283618] font-serif mb-2">{selectedEvent.name}</h3>
+                    <p className="text-2xl font-bold text-[#D4A373] mb-2">{getEventPrice(selectedEvent)}</p>
+                    <p className="text-[#606C38] text-sm mb-4">
+                      Duration: {getEventDuration(selectedEvent)} | {getEventDescription(selectedEvent)}
+                    </p>
+                    <MotionButton
+                      onClick={() => setSelectedEvent(null)}
+                      className="inline-flex items-center text-[#606C38] hover:text-[#BC6C25] transition-colors text-sm"
+                    >
+                      <BackIcon />
+                      Choose Different Service
+                    </MotionButton>
                   </div>
-                )}
+
+                  {/* Calendly Embed Container */}
+                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#D4A373]/20">
+                    {isCalendlyLoaded ? (
+                      <div>
+                        <div id="calendly-embed" style={{ minWidth: "320px", height: "700px" }} />
+
+                        {/* Fallback message */}
+                        <div className="p-6 text-center bg-[#FAEDCD]/30 border-t border-[#D4A373]/20">
+                          <p className="text-[#606C38] text-sm mb-2">Having trouble with the calendar?</p>
+                          <p className="text-[#283618] text-xs">
+                            You can also book directly by calling <strong>508-215-7462</strong> or emailing{" "}
+                            <strong>SaintedHandsbyJCM@gmail.com</strong>
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex flex-col items-center justify-center h-96 bg-[#FEFAE0]">
+                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
+                        <span className="text-[#606C38] font-semibold">Loading booking calendar...</span>
+                        <p className="text-[#283618] text-sm mt-2">This may take a few moments</p>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+            </>
+          )}
+
+          {paymentMethod === "venmo" && (
+            <motion.div
+              variants={fadeInUp}
+              className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg border border-[#D4A373]/20 text-center"
+            >
+              <h2 className="text-3xl font-bold text-[#283618] font-serif mb-6">Pay with Venmo</h2>
+              <p className="text-lg text-[#606C38] mb-4">Scan the QR code below to pay:</p>
+              <div className="flex justify-center mb-6">
+                <img
+                  src="/images/venmo-qr.png"
+                  alt="Venmo QR Code for John Carlo Madrio"
+                  className="w-64 h-auto rounded-lg shadow-md"
+                />
               </div>
+              <p className="text-xl font-semibold text-[#283618] mb-2">John Carlo Madrio</p>
+              <p className="text-[#606C38] text-lg">@JohnCarlo-Madrio</p>
+              <p className="text-[#606C38] text-sm mt-6">
+                Please ensure you confirm your booking details with John Carlo directly after sending payment via Venmo.
+              </p>
             </motion.div>
           )}
 
