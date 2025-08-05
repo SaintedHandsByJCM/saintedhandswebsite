@@ -250,7 +250,7 @@ const MotionButton = ({ children, onClick, className, type = "button", disabled 
 const ExpandableContent = ({ title, children }: any) => {
   const [isOpen, setIsOpen] = useState(false)
   return (
-    <motion.div variants={fadeInUp} className="bg-[#FAEDCD]/50 p-6 rounded-2xl border border-[#D4A373]/20">
+    <motion.div variants={fadeInUp} className="bg-[#FAEDCD]/90 p-6 rounded-2xl border border-[#D4A373]/20">
       <h3 className="text-2xl font-bold mb-4 font-serif text-[#283618]">{title}</h3>
       <motion.div
         animate={{ height: isOpen ? "auto" : "60px" }}
@@ -659,7 +659,7 @@ const ServiceDetail = ({ service, onBack, setPage }: any) => (
       <h1 className="text-4xl md:text-5xl font-bold text-[#283618] font-serif">{service.title}</h1>
     </div>
 
-    <div className="max-w-3xl mx-auto bg-[#FAEDCD]/50 p-8 rounded-2xl border border-[#D4A373]/20 text-center">
+    <div className="max-w-3xl mx-auto bg-[#FAEDCD]/90 p-8 rounded-2xl border border-[#D4A373]/20 text-center">
       <h3 className="text-2xl font-bold text-[#606C38] mb-2 font-serif">Best For</h3>
       <p className="text-[#283618]/80 mb-6">{service.details.bestFor}</p>
       <h3 className="text-2xl font-bold text-[#606C38] mb-2 font-serif">What to Expect</h3>
@@ -683,8 +683,12 @@ const ServicesPage = ({ initialService, setPage, services }: any) => {
 
   return (
     <PageWrapper>
-      <div className="pt-32 pb-16 bg-[#FEFAE0]">
-        <div className="container mx-auto px-6">
+      <div
+        className="pt-32 pb-16 bg-cover bg-center min-h-screen"
+        style={{ backgroundImage: `url(/images/saintedhandsbackground.webp)` }}
+      >
+        <div className="absolute inset-0 bg-[#FEFAE0]/80"></div>
+        <div className="container mx-auto px-6 relative z-10">
           <AnimatePresence mode="wait">
             {selectedService ? (
               <motion.div key="detail">
@@ -775,9 +779,13 @@ const ServicesPage = ({ initialService, setPage, services }: any) => {
 
 const AboutPage = ({ images }: any) => (
   <PageWrapper>
-    <div className="pt-32 pb-16 bg-[#FEFAE0]">
+    <div
+      className="pt-32 pb-16 bg-cover bg-center min-h-screen"
+      style={{ backgroundImage: `url(/images/saintedhandsbackground.webp)` }}
+    >
+      <div className="absolute inset-0 bg-[#FEFAE0]/80"></div>
       <motion.div
-        className="container mx-auto px-6 text-[#283618] text-center"
+        className="container mx-auto px-6 text-[#283618] text-center relative z-10"
         initial="initial"
         animate="animate"
         variants={staggerContainer}
@@ -794,7 +802,10 @@ const AboutPage = ({ images }: any) => (
         <motion.h2 variants={fadeInUp} className="text-3xl font-bold font-serif">
           John Carlo Madrio
         </motion.h2>
-        <motion.p variants={fadeInUp} className="text-lg text-[#606C38] mt-4 max-w-3xl mx-auto">
+        <motion.p
+          variants={fadeInUp}
+          className="text-lg text-[#606C38] mt-4 max-w-3xl mx-auto bg-[#FEFAE0]/80 p-6 rounded-2xl"
+        >
           I'm a very spiritual person that walks the path of benevolence and altruism. I'm a firm believer that
           stretching (i.e. Yoga) and daily habits can form a healthy body. A holistic approach in massage therapy can go
           a long way in creating a healthy body, mind and spirit.
@@ -806,19 +817,23 @@ const AboutPage = ({ images }: any) => (
 
 const ContactPage = () => (
   <PageWrapper>
-    <div className="pt-32 pb-16 bg-[#FEFAE0]">
+    <div
+      className="pt-32 pb-16 bg-cover bg-center min-h-screen"
+      style={{ backgroundImage: `url(/images/saintedhandsbackground.webp)` }}
+    >
+      <div className="absolute inset-0 bg-[#FEFAE0]/80"></div>
       <motion.div
-        className="container mx-auto px-6 text-[#283618]"
+        className="container mx-auto px-6 text-[#283618] relative z-10"
         initial="initial"
         animate="animate"
         variants={staggerContainer}
       >
         <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-bold text-center mb-12 font-serif">
-          Contact & Schedule
+          Contact
         </motion.h1>
 
-        <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div variants={fadeInUp} className="bg-[#FAEDCD]/50 p-8 rounded-2xl border border-[#D4A373]/20">
+        <div className="max-w-4xl mx-auto grid grid-cols-1 gap-8">
+          <motion.div variants={fadeInUp} className="bg-[#FAEDCD]/90 p-8 rounded-2xl border border-[#D4A373]/20">
             <h3 className="text-2xl font-bold mb-4 font-serif">Contact Info</h3>
             <p className="text-[#606C38] mb-2">
               <strong>Phone:</strong> 508-215-7462
@@ -836,22 +851,6 @@ const ContactPage = () => (
               <span className="ml-2">Instagram</span>
             </a>
           </motion.div>
-
-          <motion.div variants={fadeInUp} className="bg-[#FAEDCD]/50 p-8 rounded-2xl border border-[#D4A373]/20">
-            <h3 className="text-2xl font-bold mb-4 font-serif">Schedule</h3>
-            <ul className="text-[#606C38] space-y-2">
-              <li>
-                <strong>Mon/Tues:</strong> Evenings
-              </li>
-              <li>
-                <strong>Wed/Thurs:</strong> 8pm (In-home only)
-              </li>
-              <li>
-                <strong>Fri:</strong> 4pm - 6:30pm
-              </li>
-            </ul>
-            <p className="text-[#283618] mt-4 font-semibold">For more flexible times, please contact me.</p>
-          </motion.div>
         </div>
       </motion.div>
     </div>
@@ -865,7 +864,7 @@ const BookingPage = () => {
   const [selectedEvent, setSelectedEvent] = useState<any>(null)
   const [isLoadingEvents, setIsLoadingEvents] = useState(true)
   const [userInfo, setUserInfo] = useState<any>(null)
-  const [paymentMethod, setPaymentMethod] = useState<"calendly" | "venmo">("calendly")
+  const [paymentMethod, setPaymentMethod] = useState<"calendly" | "digital-payments">("calendly")
 
   // Calendly API configuration
   const CALENDLY_TOKEN =
@@ -1023,8 +1022,17 @@ const BookingPage = () => {
 
   return (
     <PageWrapper>
-      <div className="pt-32 pb-16 bg-[#FEFAE0] min-h-screen">
-        <motion.div className="container mx-auto px-6" initial="initial" animate="animate" variants={staggerContainer}>
+      <div
+        className="pt-32 pb-16 bg-cover bg-center min-h-screen"
+        style={{ backgroundImage: `url(/images/saintedhandsbackground.webp)` }}
+      >
+        <div className="absolute inset-0 bg-[#FEFAE0]/85"></div>
+        <motion.div
+          className="container mx-auto px-6 relative z-10"
+          initial="initial"
+          animate="animate"
+          variants={staggerContainer}
+        >
           <motion.h1
             variants={fadeInUp}
             className="text-4xl md:text-5xl font-bold text-center mb-8 font-serif text-[#283618]"
@@ -1032,7 +1040,10 @@ const BookingPage = () => {
             Book Your Session
           </motion.h1>
 
-          <motion.p variants={fadeInUp} className="text-center text-[#606C38] mb-12 max-w-2xl mx-auto">
+          <motion.p
+            variants={fadeInUp}
+            className="text-center text-[#606C38] mb-12 max-w-2xl mx-auto bg-[#FEFAE0]/90 p-4 rounded-2xl"
+          >
             Choose your preferred service below and select your ideal date and time. Payment will be processed securely
             through our booking system.
           </motion.p>
@@ -1050,14 +1061,14 @@ const BookingPage = () => {
               Book via Calendly
             </MotionButton>
             <MotionButton
-              onClick={() => setPaymentMethod("venmo")}
+              onClick={() => setPaymentMethod("digital-payments")}
               className={`px-6 py-3 rounded-r-full font-semibold transition-colors ${
-                paymentMethod === "venmo"
+                paymentMethod === "digital-payments"
                   ? "bg-[#D4A373] text-white"
                   : "bg-[#FAEDCD] text-[#606C38] hover:bg-[#D4A373]/30"
               }`}
             >
-              Pay with Venmo
+              Pay with Digital Payments
             </MotionButton>
           </div>
 
@@ -1087,7 +1098,7 @@ const BookingPage = () => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => setSelectedEvent(event)}
-                        className="bg-[#FAEDCD]/50 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
+                        className="bg-[#FAEDCD]/90 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
                       >
                         <div className="flex items-center justify-center mb-4">
                           <ClockIcon />
@@ -1104,7 +1115,7 @@ const BookingPage = () => {
                   </div>
 
                   {/* Enhancement Options */}
-                  <div className="bg-[#FAEDCD]/30 p-6 rounded-2xl border border-[#D4A373]/20 text-center">
+                  <div className="bg-[#FAEDCD]/90 p-6 rounded-2xl border border-[#D4A373]/20 text-center">
                     <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Available Enhancements</h4>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-[#606C38]">
                       <div className="flex flex-col items-center">
@@ -1131,7 +1142,7 @@ const BookingPage = () => {
                 // Calendly Booking Interface
                 <motion.div variants={fadeInUp} className="max-w-5xl mx-auto">
                   {/* Selected Service Header */}
-                  <div className="bg-[#FAEDCD]/50 p-6 rounded-2xl border border-[#D4A373]/20 mb-8 text-center">
+                  <div className="bg-[#FAEDCD]/90 p-6 rounded-2xl border border-[#D4A373]/20 mb-8 text-center">
                     <div className="inline-block bg-[#BC6C25] text-white px-3 py-1 rounded-full text-xs font-semibold mb-2">
                       Limited Time Promotion
                     </div>
@@ -1177,31 +1188,58 @@ const BookingPage = () => {
             </>
           )}
 
-          {paymentMethod === "venmo" && (
+          {paymentMethod === "digital-payments" && (
             <motion.div
               variants={fadeInUp}
-              className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg border border-[#D4A373]/20 text-center"
+              className="max-w-4xl mx-auto bg-white/95 p-8 rounded-2xl shadow-lg border border-[#D4A373]/20 text-center"
             >
-              <h2 className="text-3xl font-bold text-[#283618] font-serif mb-6">Pay with Venmo</h2>
-              <p className="text-lg text-[#606C38] mb-4">Scan the QR code below to pay:</p>
-              <div className="flex justify-center mb-6">
-                <img
-                  src="/images/venmo-qr.png"
-                  alt="Venmo QR Code for John Carlo Madrio"
-                  className="w-64 h-auto rounded-lg shadow-md"
-                />
+              <h2 className="text-3xl font-bold text-[#283618] font-serif mb-6">Pay with Digital Payments</h2>
+              <p className="text-lg text-[#606C38] mb-8">Scan the QR code for your preferred payment method:</p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* Venmo */}
+                <div className="flex flex-col items-center">
+                  <img
+                    src="/images/venmo-qr.webp"
+                    alt="Venmo QR Code for John Carlo Madrio"
+                    className="w-48 h-48 object-contain rounded-lg shadow-md mb-4"
+                  />
+                  <p className="text-xl font-semibold text-[#283618] mb-1">Venmo</p>
+                  <p className="text-[#606C38] text-lg">@JohnCarlo-Madrio</p>
+                </div>
+
+                {/* Zelle */}
+                <div className="flex flex-col items-center">
+                  <img
+                    src="/images/zelle-qr.webp"
+                    alt="Zelle QR Code for John Carlo Madrio"
+                    className="w-48 h-48 object-contain rounded-lg shadow-md mb-4"
+                  />
+                  <p className="text-xl font-semibold text-[#283618] mb-1">Zelle</p>
+                  <p className="text-[#606C38] text-lg">SaintedHandsbyJCM@gmail.com</p>
+                </div>
+
+                {/* Cash App */}
+                <div className="flex flex-col items-center">
+                  <img
+                    src="/images/cashapp-qr.webp"
+                    alt="Cash App QR Code for John Carlo Madrio"
+                    className="w-48 h-48 object-contain rounded-lg shadow-md mb-4"
+                  />
+                  <p className="text-xl font-semibold text-[#283618] mb-1">Cash App</p>
+                  <p className="text-[#606C38] text-lg">$JohnMadrio</p>
+                </div>
               </div>
-              <p className="text-xl font-semibold text-[#283618] mb-2">John Carlo Madrio</p>
-              <p className="text-[#606C38] text-lg">@JohnCarlo-Madrio</p>
-              <p className="text-[#606C38] text-sm mt-6">
-                Please ensure you confirm your booking details with John Carlo directly after sending payment via Venmo.
+
+              <p className="text-[#606C38] text-sm mt-8">
+                Please ensure you confirm your booking details with John Carlo directly after sending payment.
               </p>
             </motion.div>
           )}
 
           {/* Help Section */}
           <motion.div variants={fadeInUp} className="text-center mt-12">
-            <div className="bg-[#FAEDCD]/30 p-6 rounded-2xl border border-[#D4A373]/20 max-w-2xl mx-auto">
+            <div className="bg-[#FAEDCD]/90 p-6 rounded-2xl border border-[#D4A373]/20 max-w-2xl mx-auto">
               <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Need Help Booking?</h4>
               <p className="text-[#606C38] mb-4">
                 Having trouble with the calendar or have questions about our services?
@@ -1244,6 +1282,48 @@ const BookingPage = () => {
   )
 }
 
+// --- Browser History Management Hook ---
+const useBrowserHistory = (currentPage: string, setPage: (page: string) => void) => {
+  useEffect(() => {
+    // Function to handle browser back/forward buttons
+    const handlePopState = (event: PopStateEvent) => {
+      const page = event.state?.page || "home"
+      setPage(page)
+    }
+
+    // Function to update browser history when page changes
+    const updateHistory = (page: string) => {
+      const url = page === "home" ? "/" : `/${page}`
+      const title = `Sainted Hands - ${page.charAt(0).toUpperCase() + page.slice(1)}`
+
+      // Only push state if it's different from current state
+      if (window.history.state?.page !== page) {
+        window.history.pushState({ page }, title, url)
+      }
+    }
+
+    // Update history when page changes
+    updateHistory(currentPage)
+
+    // Listen for browser back/forward button clicks
+    window.addEventListener("popstate", handlePopState)
+
+    // Set initial state if none exists
+    if (!window.history.state) {
+      window.history.replaceState(
+        { page: currentPage },
+        document.title,
+        currentPage === "home" ? "/" : `/${currentPage}`,
+      )
+    }
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("popstate", handlePopState)
+    }
+  }, [currentPage, setPage])
+}
+
 // --- Main App Component ---
 export default function App() {
   const [page, setPage] = useState("home")
@@ -1256,6 +1336,9 @@ export default function App() {
   const [services, setServices] = useState(servicesData)
   const [isLoading, setIsLoading] = useState(false)
   const [isIntroDone, setIsIntroDone] = useState(false)
+
+  // Use browser history management
+  useBrowserHistory(page, setPage)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -1289,10 +1372,10 @@ export default function App() {
   return (
     <div className="bg-[#FEFAE0] font-sans">
       <style jsx global>{`
-      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;600&display=swap');
-      .font-serif { font-family: 'Playfair Display', serif; }
-      .font-sans { font-family: 'Quicksand', sans-serif; }
-    `}</style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Quicksand:wght@400;600&display=swap');
+    .font-serif { font-family: 'Playfair Display', serif; }
+    .font-sans { font-family: 'Quicksand', sans-serif; }
+  `}</style>
 
       <Header setPage={setPage} onServiceSelect={handleServiceSelect} isVisible={isIntroDone || page !== "home"} />
 
