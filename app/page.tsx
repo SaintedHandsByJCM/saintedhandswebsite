@@ -21,7 +21,7 @@ const InstagramIcon = () => (
   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
     <path
       fillRule="evenodd"
-      d="M12.017 0C8.396 0 7.929.01 7.102.048 6.273.088 5.718.222 5.233.42a7.762 7.762 0 0 0-2.812 1.83A7.847 7.847 0 0 0 .42 5.233C.222 5.718.087 6.273.048 7.102.01 7.929 0 8.396 0 12.017c0 3.624.01 4.09.048 4.918.039.83.174 1.384.372 1.87.204.48.478.923.923 1.417.444.445.887.719 1.416.923.487.198 1.041.333 1.87.372C7.929 23.99 8.396 24 12.017 24c3.624 0 4.09-.01 4.918-.048.83-.04 1.384-.174 1.87-.372a7.847 7.847 0 0 0 1.416-.923c.445-.444.719-.887.923-1.416.198-.487.333-1.041.372-1.87.04-.83.048-1.295.048-4.918 0-3.621-.01-4.088-.048-4.918-.04-.83-.174-1.384-.372-1.87a7.762 7.762 0 0 0-.923-1.416A7.847 7.847 0 0 0 18.804.42c-.487-.198-1.041-.333-1.87-.372C16.107.01 15.64 0 12.017 0zM12.017 2.13c3.557 0 3.98.01 4.787.048.677.03 1.126.142 1.39.236.35.136.6.3.863.564.264.263.428.513.564.863.094.264.206.713.236 1.39.038.808.047 1.23.047 4.787 0 3.557-.01 3.98-.047 4.787-.03.677-.142 1.126-.236 1.39a2.32 2.32 0 0 1-.564.863 2.32 2.32 0 0 1-.863.564c-.264.094-.713.206-1.39.236-.808.038-1.23.047-4.787.047-3.557 0-3.98-.01-4.787-.047-.677-.03-1.126-.142-1.39-.236a2.32 2.32 0 0 1-.863-.564 2.32 2.32 0 0 1-.564-.863c-.094-.264-.206-.713-.236-1.39-.038-.808-.047-1.23-.047-4.787 0-3.557.01-3.98.047-4.787.03-.677.142-1.126.236-1.39.136-.35.3-.6.564-.863a2.32 2.32 0 0 1 .863-.564c.264-.094.713-.206 1.39-.236.808-.038 1.23-.047 4.787-.047zm0 3.623a6.264 6.264 0 1 0 0 12.528 6.264 6.264 0 0 0 0-12.528zM12.017 9.405a2.612 2.612 0 1 1 0 5.224 2.612 2.612 0 0 1 0-5.224zm5.13-.481a1.464 1.464 0 1 1-2.928 0 1.464 1.464 0 0 1 2.928 0z"
+      d="M12.017 0C8.396 0 7.929.01 7.102.048 6.273.088 5.718.222 5.233.42a7.762 7.762 0 0 0-2.812 1.83A7.847 7.847 0 0 0 .42 5.233C.222 5.718.087 6.273.048 7.102.01 7.929 0 8.396 0 12.017c0 3.624.01 4.09.048 4.918.039.83.174 1.384.372 1.87.204.48.478.923.923 1.417.444.445.887.719 1.416.923.487.198 1.041.333 1.87.372C7.929 23.99 8.396 24 12.017 24c3.624 0 4.09-.01 4.918-.048.83-.04 1.384-.174 1.87-.372a7.847 7.847 0 0 0 1.416-.923c.445-.444.719-.887.923-1.416.198-.487.333-1.041.372-1.87.04-.83.048-1.295.048-4.918 0-3.621-.01-4.088-.048-4.918-.04-.83-.174-1.384-.372-1.87a7.762 7.762 0 0 0-.923-1.416A7.847 7.847 0 0 0 18.804.42c-.487-.198-1.041-.333-1.87-.372C16.107.01 15.64 0 12.017 0zM12.017 2.13c3.557 0 3.98.01 4.787.048.677.03 1.126.142 1.39.236.35.136.6.3.863.564.264.263.428.513.564.863.094.264.206.713.236 1.39.038.808.047 1.23.047 4.787 0 3.557-.01 3.98-.047 4.787-.03.677-.142 1.126-.236 1.39a2.32 2.32 0 0 1-.863-.564 2.32 2.32 0 0 1-.564-.863c-.264-.094-.713-.206-1.39-.236-.808-.038-1.23-.047-4.787-.047-3.557 0-3.98-.01-4.787-.047-.677-.03-1.126-.142-1.39-.236.136-.35.3-.6.564-.863a2.32 2.32 0 0 1 .863-.564c.264-.094.713-.206 1.39-.236.808-.038 1.23-.047 4.787-.047zm0 3.623a6.264 6.264 0 1 0 0 12.528 6.264 6.264 0 0 0 0-12.528zM12.017 9.405a2.612 2.612 0 1 1 0 5.224 2.612 2.612 0 0 1 0-5.224zm5.13-.481a1.464 1.464 0 1 1-2.928 0 1.464 1.464 0 0 1 2.928 0z"
       clipRule="evenodd"
     />
   </svg>
@@ -492,25 +492,28 @@ const HeroSection = ({ setPage, images }: any) => (
   </motion.section>
 )
 
-const ServicesSection = ({ onServiceSelect, services }: any) => {
+const ServicesSection = ({ onServiceSelect, services, backgroundImage }: any) => {
   const [expandedService, setExpandedService] = useState<string | null>(null)
 
   return (
     <motion.section
-      className="py-20 bg-[#FEFAE0]"
+      className="py-20 bg-cover bg-center relative" // Added relative for overlay
+      style={{ backgroundImage: `url(${backgroundImage})` }}
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, amount: 0.2 }}
       variants={staggerContainer}
     >
-      <div className="container mx-auto px-6">
+      <div className="absolute inset-0 bg-[#FEFAE0]/80"></div> {/* Overlay for readability */}
+      <div className="container mx-auto px-6 relative z-10">
+        {" "}
+        {/* Content above overlay */}
         <motion.div variants={fadeInUp} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#283618] font-serif">Services Offered</h2>
           <p className="text-lg text-[#606C38] mt-4 max-w-2xl mx-auto">
             A range of therapies designed to restore balance and promote well-being.
           </p>
         </motion.div>
-
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service: any) => (
             <motion.div
@@ -635,7 +638,11 @@ const HomePage = ({ setPage, images, services, onServiceSelect }: any) => (
   <PageWrapper>
     <HeroSection setPage={setPage} images={images} />
     <SectionDivider />
-    <ServicesSection onServiceSelect={onServiceSelect} services={services} />
+    <ServicesSection
+      onServiceSelect={onServiceSelect}
+      services={services}
+      backgroundImage="/images/saintedhandsbackground.webp"
+    />
     <SectionDivider />
     <SpecialOfferSection setPage={setPage} images={images} />
   </PageWrapper>
@@ -696,7 +703,11 @@ const ServicesPage = ({ initialService, setPage, services }: any) => {
               </motion.div>
             ) : (
               <motion.div key="grid" className="space-y-8">
-                <ServicesSection onServiceSelect={setSelectedService} services={services} />
+                <ServicesSection
+                  onServiceSelect={setSelectedService}
+                  services={services}
+                  backgroundImage="/images/saintedhandsbackground.webp"
+                />
                 <motion.div
                   variants={staggerContainer}
                   initial="initial"
