@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Sainted Hands",
   description: "Professional massage therapy and holistic wellness services by John Carlo Madrio",
   generator: "v0.dev",
+  icons: {
+    icon: "/favicon.ico",
+  },
 }
 
 export default function RootLayout({
@@ -18,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
         <style>{`
 html {
   font-family: ${GeistSans.style.fontFamily};

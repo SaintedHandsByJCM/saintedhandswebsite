@@ -21,7 +21,7 @@ const InstagramIcon = () => (
   <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
     <path
       fillRule="evenodd"
-      d="M12.017 0C8.396 0 7.929.01 7.102.048 6.273.088 5.718.222 5.233.42a7.762 7.762 0 0 0-2.812 1.83A7.847 7.847 0 0 0 .42 5.233C.222 5.718.087 6.273.048 7.102.01 7.929 0 8.396 0 12.017c0 3.624.01 4.09.048 4.918.039.83.174 1.384.372 1.87.204.48.478.923.923 1.417.444.445.887.719 1.416.923.487.198 1.041.333 1.87.372C7.929 23.99 8.396 24 12.017 24c3.624 0 4.09-.01 4.918-.048.83-.04 1.384-.174 1.87-.372a7.847 7.847 0 0 0 1.416-.923c.445-.444.719-.887.923-1.416.198-.487.333-1.041.372-1.87.04-.83.048-1.295.048-4.918 0-3.621-.01-4.088-.048-4.918-.04-.83-.174-1.384-.372-1.87a7.762 7.762 0 0 0-.923-1.416A7.847 7.847 0 0 0 18.804.42c-.487-.198-1.041-.333-1.87-.372C16.107.01 15.64 0 12.017 0zM12.017 2.13c3.557 0 3.98.01 4.787.048.677.03 1.126.142 1.39.236.35.136.6.3.863.564.264.263.428.513.564.863.094.264.206.713.236 1.39.038.808.047 1.23.047 4.787 0 3.557-.01 3.98-.047 4.787-.03.677-.142 1.126-.236 1.39a2.32 2.32 0 0 1-.863-.564 2.32 2.32 0 0 1-.564-.863c-.264-.094-.713-.206-1.39-.236-.808-.038-1.23-.047-4.787-.047-3.557 0-3.98-.01-4.787-.047-.677-.03-1.126-.142-1.39-.236.136-.35.3-.6.564-.863a2.32 2.32 0 0 1 .863-.564c.264-.094.713-.206 1.39-.236.808-.038 1.23-.047 4.787-.047zm0 3.623a6.264 6.264 0 1 0 0 12.528 6.264 6.264 0 0 0 0-12.528zM12.017 9.405a2.612 2.612 0 1 1 0 5.224 2.612 2.612 0 0 1 0-5.224zm5.13-.481a1.464 1.464 0 1 1-2.928 0 1.464 1.464 0 0 1 2.928 0z"
+      d="M12.017 0C8.396 0 7.929.01 7.102.048 6.273.088 5.718.222 5.233.42a7.762 7.762 0 0 0-2.812 1.83A7.847 7.847 0 0 0 .42 5.233C.222 5.718.087 6.273.048 7.102.01 7.929 0 8.396 0 12.017c0 3.624.01 4.09.048 4.918.039.83.174 1.384.372 1.87.204.48.478.923.923 1.417.444.445.887.719 1.416.923.487.198 1.041.333 1.87.372C7.929 23.99 8.396 24 12.017 24c3.624 0 4.09-.01 4.918-.048.83-.04 1.384-.174 1.87-.372a7.847 7.847 0 0 0 1.416-.923c.445-.444.719-.887.923-1.416.198-.487.333-1.041.372-1.87.04-.83.048-1.295.048-4.918 0-3.621-.01-4.088-.048-4.918-.04-.83-.174-1.384-.372-1.87a7.762 7.762 0 0 0-.923-1.416A7.847 7.847 0 0 0 18.804.42c-.487-.198-1.041-.333-1.87-.372C16.107.01 15.64 0 12.017 0zM12.017 2.13c3.557 0 3.98.01 4.787.048.677.03 1.126.142 1.39.236.35.136.6.3.863.564.264.263.428.513.564.863.094.264.206.713.236 1.39.038.808.047 1.23.047 4.787 0 3.557-.01 3.98-.047 4.787-.03.677-.142 1.126-.236 1.39a2.32 2.32 0 0 1-.564.863 2.32 2.32 0 0 1-.863.564c-.264.094-.713.206-1.39.236-.808.038-1.23.047-4.787.047-3.557 0-3.98-.01-4.787-.047-.677-.03-1.126-.142-1.39-.236a2.32 2.32 0 0 1-.863-.564 2.32 2.32 0 0 1-.564-.863c-.094-.264-.206-.713-.236-1.39-.038-.808-.047-1.23-.047-4.787 0-3.557.01-3.98.047-4.787.03-.677.142-1.126.236-1.39.136-.35.3-.6.564-.863a2.32 2.32 0 0 1 .863-.564c.264-.094.713-.206 1.39-.236.808-.038 1.23-.047 4.787-.047zm0 3.623a6.264 6.264 0 1 0 0 12.528 6.264 6.264 0 0 0 0-12.528zM12.017 9.405a2.612 2.612 0 1 1 0 5.224 2.612 2.612 0 0 1 0-5.224zm5.13-.481a1.464 1.464 0 1 1-2.928 0 1.464 1.464 0 0 1 2.928 0z"
       clipRule="evenodd"
     />
   </svg>
@@ -497,17 +497,19 @@ const ServicesSection = ({ onServiceSelect, services, backgroundImage }: any) =>
 
   return (
     <motion.section
-      className="py-20 bg-cover bg-center relative" // Added relative for overlay
-      style={{ backgroundImage: `url(${backgroundImage})` }}
+      className="py-20 bg-cover bg-center bg-no-repeat relative" // Added bg-no-repeat and adjusted sizing
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover", // Changed from default to cover to fit better
+        backgroundPosition: "center center", // Ensure it's centered
+      }}
       initial="initial"
       whileInView="animate"
       viewport={{ once: true, amount: 0.2 }}
       variants={staggerContainer}
     >
-      <div className="absolute inset-0 bg-[#FEFAE0]/80"></div> {/* Overlay for readability */}
+      <div className="absolute inset-0 bg-[#FEFAE0]/85"></div> {/* Slightly more opaque overlay */}
       <div className="container mx-auto px-6 relative z-10">
-        {" "}
-        {/* Content above overlay */}
         <motion.div variants={fadeInUp} className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#283618] font-serif">Services Offered</h2>
           <p className="text-lg text-[#606C38] mt-4 max-w-2xl mx-auto">
@@ -519,7 +521,7 @@ const ServicesSection = ({ onServiceSelect, services, backgroundImage }: any) =>
             <motion.div
               key={service.id}
               variants={fadeInUp}
-              className="bg-[#FAEDCD]/50 rounded-2xl text-center border border-[#D4A373]/20 hover:shadow-xl transition-shadow duration-300 overflow-hidden"
+              className="bg-[#FAEDCD]/90 rounded-2xl text-center border border-[#D4A373]/20 hover:shadow-xl transition-shadow duration-300 overflow-hidden"
             >
               <img
                 src={service.imgSrc || "/placeholder.svg"}
@@ -529,12 +531,11 @@ const ServicesSection = ({ onServiceSelect, services, backgroundImage }: any) =>
               <div className="p-6">
                 <MotionButton
                   onClick={() => setExpandedService(expandedService === service.id ? null : service.id)}
-                  className="w-full flex flex-col items-center justify-center" // Changed for centering
+                  className="w-full flex flex-col items-center justify-center"
                 >
                   <h3 className="text-xl font-bold text-[#606C38] mb-2 font-serif hover:text-[#BC6C25] transition-colors">
                     {service.title}
                   </h3>
-                  {/* Add the dropdown icon */}
                   <motion.svg
                     className={`w-5 h-5 ml-2 text-[#BC6C25] transition-transform duration-300`}
                     animate={{ rotate: expandedService === service.id ? 180 : 0 }}
@@ -565,8 +566,6 @@ const ServicesSection = ({ onServiceSelect, services, backgroundImage }: any) =>
                     </motion.div>
                   )}
                 </AnimatePresence>
-
-                {/* Removed the "Click title to read more..." text */}
               </div>
             </motion.div>
           ))}
@@ -1143,7 +1142,14 @@ const BookingPage = () => {
                       </div>
                       <div className="flex flex-col items-center">
                         <ScalarMachineIcon />
-                        <span className="mt-1 font-semibold">Scalar Machine</span>
+                        <a
+                          href="https://www.spooky2scalar.com/introduction-to-spooky2-scalar/?gad_source=1&gad_campaignid=20363934937&gbraid=0AAAAADb3BH2A5Tj0kl5p28nV3BJRiS-ul&gclid=Cj0KCQjwtMHEBhC-ARIsABua5iQklDEanzISzn4UyyiPRfZcdwA_Zu9rzTuOr7zOsJWF4J61RHG9LjoaApmMEALw_wcB"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-1 font-semibold text-[#BC6C25] hover:text-[#D4A373] underline transition-colors"
+                        >
+                          Scalar Machine
+                        </a>
                         <span className="text-xs text-[#BC6C25] font-semibold">(Office Only)</span>
                       </div>
                     </div>
