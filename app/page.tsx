@@ -869,89 +869,44 @@ const ContactPage = () => (
 
 // --- Advanced Calendly Integration ---
 const BookingPage = () => {
-  const [isCalendlyLoaded, setIsCalendlyLoaded] = useState(false)
-  const [calendlyEvents, setCalendlyEvents] = useState<any[]>([])
   const [selectedEvent, setSelectedEvent] = useState<any>(null)
-  const [isLoadingEvents, setIsLoadingEvents] = useState(true)
-  const [userInfo, setUserInfo] = useState<any>(null)
-  const [paymentMethod, setPaymentMethod] = useState<"calendly" | "digital-payments">("calendly")
+  const [paymentMethod, setPaymentMethod] = useState<"neetocal" | "digital-payments">("neetocal")
 
-  // Calendly API configuration
-  const CALENDLY_TOKEN =
-    "eyJraWQiOiIxY2UxZTEzNjE3ZGNmNzY2YjNjZWJjY2Y4ZGM1YmFmYThhNjVlNjg0MDIzZjdjMzJiZTgzNDliMjM4MDEzNWI0IiwidHlwIjoiUEFUIiwiYWxnIjoiRVMyNTYifQ.eyJpc3MiOiJodHRwczovL2F1dGguY2FsZW5kbHkuY29tIiwiaWF0IjoxNzUzODgxNTUyLCJqdGkiOiJlZDdmMzI4YS01ZmFjLTRlNTMtODhhNy1kNWYzNWE5NThiMjMiLCJ1c2VyX3V1aWQiOiIwMmQ3ZGI1NS0wNzY4LTQzNmYtYmY2ZC01MmNhZGFhZmNlMTYifQ.USZEX6joSJQbsKoPf73EJBJUjqJQS_M2x5Dw74HI9rAWK0rrVMM9646MR3TM7fy9sPM38g_fk9cr_SKqcQSJgw"
+  const neetoCalEvents = [
+    {
+      name: "1 Hour Massage Package",
+      duration: 60,
+      neetoCalId: "6ab1ef95-60e6-4445-8470-4c7021827778",
+      description_plain:
+        "Perfect for targeted relief and relaxation. Includes 1-hour massage with any enhancement of your choice + special oil/lotion.",
+      price: "$100",
+    },
+    {
+      name: "90 Minute Massage Package",
+      duration: 90,
+      neetoCalId: "37d61215-8ceb-4e91-b5dc-335d4e97b989",
+      description_plain:
+        "Extended session for deep healing and ultimate relaxation. Includes 90-minute massage with any enhancement of your choice + special oil/lotion.",
+      price: "$130",
+    },
+  ]
 
-  // Fetch user info and event types from Calendly API
   useEffect(() => {
-    const fetchCalendlyData = async () => {
-      try {
-        setIsLoadingEvents(true)
-
-        // Fetch current user info
-        const userResponse = await fetch("https://api.calendly.com/users/me", {
-          headers: {
-            Authorization: `Bearer ${CALENDLY_TOKEN}`,
-            "Content-Type": "application/json",
-          },
-        })
-
-        if (userResponse.ok) {
-          const userData = await userResponse.json()
-          setUserInfo(userData.resource)
-
-          // Fetch event types for the user
-          const eventsResponse = await fetch(`https://api.calendly.com/event_types?user=${userData.resource.uri}`, {
-            headers: {
-              Authorization: `Bearer ${CALENDLY_TOKEN}`,
-              "Content-Type": "application/json",
-            },
-          })
-
-          if (eventsResponse.ok) {
-            const eventsData = await eventsResponse.json()
-            setCalendlyEvents(eventsData.collection || [])
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching Calendly data:", error)
-        // Fallback to static event data if API fails
-        setCalendlyEvents([
-          {
-            name: "1 Hour Massage Package",
-            duration: 60,
-            scheduling_url: "https://calendly.com/saintedhandsbyjcm",
-            description_plain:
-              "Perfect for targeted relief and relaxation. Includes 1-hour massage with any enhancement of your choice + special oil/lotion.",
-            price: "$100",
-          },
-          {
-            name: "90 Minute Massage Package",
-            duration: 90,
-            scheduling_url: "https://calendly.com/saintedhandsbyjcm",
-            description_plain:
-              "Extended session for deep healing and ultimate relaxation. Includes 90-minute massage with any enhancement of your choice + special oil/lotion.",
-            price: "$130",
-          },
-        ])
-      } finally {
-        setIsLoadingEvents(false)
-      }
-    }
-
-    fetchCalendlyData()
-  }, [])
-
-  // Load Calendly widget script
-  useEffect(() => {
-    if (paymentMethod === "calendly") {
+    if (paymentMethod === "neetocal") {
       const script = document.createElement("script")
-      script.src = "https://assets.calendly.com/assets/external/widget.js"
-      script.onload = () => setIsCalendlyLoaded(true)
+      script.src = "https://cdn.neetocal.com/javascript/embed.js"
+      script.async = true
       document.body.appendChild(script)
 
+      // Initialize NeetoCal global object
+      window.neetoCal = window.neetoCal || {
+        embed: () => {
+          ;(window.neetoCal.q = window.neetoCal.q || []).push(arguments)
+        },
+      }
+
       return () => {
-        const existingScript = document.querySelector(
-          'script[src="https://assets.calendly.com/assets/external/widget.js"]',
-        )
+        const existingScript = document.querySelector('script[src="https://cdn.neetocal.com/javascript/embed.js"]')
         if (existingScript) {
           document.body.removeChild(existingScript)
         }
@@ -959,50 +914,24 @@ const BookingPage = () => {
     }
   }, [paymentMethod])
 
-  // Initialize Calendly widget when event is selected
   useEffect(() => {
-    if (selectedEvent && isCalendlyLoaded && paymentMethod === "calendly") {
-      const embedContainer = document.getElementById("calendly-embed")
-      if (embedContainer) {
+    if (selectedEvent && paymentMethod === "neetocal") {
+      const embedContainer = document.getElementById("neetocal-embed")
+      if (embedContainer && window.neetoCal) {
         // Clear previous embed
         embedContainer.innerHTML = ""
 
-        // Initialize new embed with custom styling
-        const calendlyUrl = new URL(selectedEvent.scheduling_url)
-        calendlyUrl.searchParams.set("hide_event_type_details", "1")
-        calendlyUrl.searchParams.set("hide_gdpr_banner", "1")
-        calendlyUrl.searchParams.set("background_color", "FEFAE0") // Light beige
-        calendlyUrl.searchParams.set("text_color", "283618") // Dark green/brown
-        calendlyUrl.searchParams.set("primary_color", "D4A373") // Light brown/orange
-
-        // Use advanced JavaScript embed for better control
-        if (window.Calendly) {
-          window.Calendly.initInlineWidget({
-            url: calendlyUrl.toString(),
-            parentElement: embedContainer,
-            resize: true,
-          })
-
-          // Listen for Calendly events
-          const handleCalendlyEvent = (e: MessageEvent) => {
-            if (e.origin === "https://calendly.com" && e.data.event?.startsWith("calendly.")) {
-              console.log("Calendly Event:", e.data.event)
-              console.log("Event Details:", e.data.payload)
-
-              // Handle specific events
-              if (e.data.event === "calendly.event_scheduled") {
-                // Show success message or redirect
-                console.log("Booking completed!")
-              }
-            }
-          }
-
-          window.addEventListener("message", handleCalendlyEvent)
-          return () => window.removeEventListener("message", handleCalendlyEvent)
-        }
+        // Initialize NeetoCal embed
+        window.neetoCal.embed({
+          type: "inline",
+          id: selectedEvent.neetoCalId,
+          organization: "saintedhands",
+          elementSelector: "#neetocal-embed",
+          styles: "height: 100%; width: 100%;",
+        })
       }
     }
-  }, [selectedEvent, isCalendlyLoaded, paymentMethod])
+  }, [selectedEvent, paymentMethod])
 
   const getEventPrice = (event: any) => {
     // Extract price from event name or description
@@ -1061,14 +990,14 @@ const BookingPage = () => {
           {/* Payment Method Tabs */}
           <div className="flex justify-center mb-8">
             <MotionButton
-              onClick={() => setPaymentMethod("calendly")}
+              onClick={() => setPaymentMethod("neetocal")}
               className={`px-6 py-3 rounded-l-full font-semibold transition-colors ${
-                paymentMethod === "calendly"
+                paymentMethod === "neetocal"
                   ? "bg-[#D4A373] text-white"
                   : "bg-[#FAEDCD] text-[#606C38] hover:bg-[#D4A373]/30"
               }`}
             >
-              Book via Calendly
+              Book via NeetoCal
             </MotionButton>
             <MotionButton
               onClick={() => setPaymentMethod("digital-payments")}
@@ -1082,81 +1011,39 @@ const BookingPage = () => {
             </MotionButton>
           </div>
 
-          {paymentMethod === "calendly" && (
+          {paymentMethod === "neetocal" && (
             <>
-              {isLoadingEvents ? (
-                // Loading State
-                <motion.div variants={fadeInUp} className="flex flex-col items-center justify-center py-20">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
-                  <span className="text-[#606C38] font-semibold">Loading available appointments...</span>
-                  <p className="text-[#283618] text-sm mt-2">Connecting to booking system</p>
-                </motion.div>
-              ) : !selectedEvent ? (
-                // Event Selection
-                <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
-                  <div className="text-center mb-8">
-                    <div className="inline-block bg-[#BC6C25] text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
-                      Limited Time Promotion
-                    </div>
-                    <h2 className="text-2xl font-bold font-serif text-[#283618]">Choose Your Service</h2>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-                    {calendlyEvents.map((event, index) => (
-                      <motion.div
-                        key={event.uri || index}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => setSelectedEvent(event)}
-                        className="bg-[#FAEDCD]/90 p-8 rounded-2xl border-2 border-[#D4A373]/20 hover:border-[#D4A373] cursor-pointer transition-all duration-300 text-center group"
-                      >
-                        <div className="flex items-center justify-center mb-4">
+              {!selectedEvent ? (
+                // Service Selection Cards
+                <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                  {neetoCalEvents.map((event, index) => (
+                    <motion.div
+                      key={index}
+                      variants={fadeInUp}
+                      className="group bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-[#D4A373]/20 hover:shadow-xl transition-all duration-300 hover:scale-105"
+                    >
+                      <div className="text-center">
+                        <div className="inline-block bg-[#BC6C25] text-white px-3 py-1 rounded-full text-xs font-semibold mb-4">
+                          Popular Choice
+                        </div>
+                        <h3 className="text-2xl font-bold text-[#283618] font-serif mb-4">{event.name}</h3>
+                        <div className="text-3xl font-bold text-[#D4A373] mb-4">{event.price}</div>
+                        <p className="text-[#606C38] mb-6 leading-relaxed">{event.description_plain}</p>
+                        <div className="flex items-center justify-center text-[#283618] mb-6">
                           <ClockIcon />
-                          <h3 className="text-2xl font-bold text-[#283618] font-serif">{event.name}</h3>
+                          <span className="font-semibold">{event.duration} minutes</span>
                         </div>
-                        <p className="text-4xl font-bold text-[#D4A373] mb-4">{getEventPrice(event)}</p>
-                        <p className="text-[#606C38] mb-4">Duration: {getEventDuration(event)}</p>
-                        <p className="text-[#606C38] mb-6 text-sm">{getEventDescription(event)}</p>
-                        <div className="bg-[#D4A373] text-white py-3 px-6 rounded-full font-semibold group-hover:bg-[#BC6C25] transition-colors">
-                          Select This Service
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Enhancement Options */}
-                  <div className="bg-[#FAEDCD]/90 p-6 rounded-2xl border border-[#D4A373]/20 text-center">
-                    <h4 className="text-lg font-bold text-[#283618] font-serif mb-3">Available Enhancements</h4>
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-[#606C38]">
-                      <div className="flex flex-col items-center">
-                        <MassageGunIcon />
-                        <span className="mt-1 font-semibold">Rapid Tension Release</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <CuppingIcon />
-                        <span className="mt-1 font-semibold">Cupping Therapy</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <HotStoneIcon />
-                        <span className="mt-1 font-semibold">Hot Stones</span>
-                      </div>
-                      <div className="flex flex-col items-center">
-                        <ScalarMachineIcon />
-                        <a
-                          href="https://www.spooky2scalar.com/introduction-to-spooky2-scalar/?gad_source=1&gad_campaignid=20363934937&gbraid=0AAAAADb3BH2A5Tj0kl5p28nV3BJRiS-ul&gclid=Cj0KCQjwtMHEBhC-ARIsABua5iQklDEanzISzn4UyyiPRfZcdwA_Zu9rzTuOr7zOsJWF4J61RHG9LjoaApmMEALw_wcB"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-1 font-semibold text-[#BC6C25] hover:text-[#D4A373] underline transition-colors"
+                        <MotionButton
+                          onClick={() => setSelectedEvent(event)}
+                          className="w-full bg-[#D4A373] hover:bg-[#BC6C25] text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                         >
-                          Scalar Machine
-                        </a>
-                        <span className="text-xs text-[#BC6C25] font-semibold">(Office Only)</span>
+                          Book This Service
+                        </MotionButton>
                       </div>
-                    </div>
-                  </div>
-                </motion.div>
+                    </motion.div>
+                  ))}
+                </div>
               ) : (
-                // Calendly Booking Interface
                 <motion.div variants={fadeInUp} className="max-w-5xl mx-auto">
                   {/* Selected Service Header */}
                   <div className="bg-[#FAEDCD]/90 p-6 rounded-2xl border border-[#D4A373]/20 mb-8 text-center">
@@ -1177,28 +1064,19 @@ const BookingPage = () => {
                     </MotionButton>
                   </div>
 
-                  {/* Calendly Embed Container */}
                   <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-[#D4A373]/20">
-                    {isCalendlyLoaded ? (
-                      <div>
-                        <div id="calendly-embed" style={{ minWidth: "320px", height: "700px" }} />
+                    <div>
+                      <div id="neetocal-embed" style={{ minWidth: "320px", height: "717px" }} />
 
-                        {/* Fallback message */}
-                        <div className="p-6 text-center bg-[#FAEDCD]/30 border-t border-[#D4A373]/20">
-                          <p className="text-[#606C38] text-sm mb-2">Having trouble with the calendar?</p>
-                          <p className="text-[#283618] text-xs">
-                            You can also book directly by calling <strong>508-215-7462</strong> or emailing{" "}
-                            <strong>SaintedHandsbyJCM@gmail.com</strong>
-                          </p>
-                        </div>
+                      {/* Fallback message */}
+                      <div className="p-6 text-center bg-[#FAEDCD]/30 border-t border-[#D4A373]/20">
+                        <p className="text-[#606C38] text-sm mb-2">Having trouble with the calendar?</p>
+                        <p className="text-[#283618] text-xs">
+                          You can also book directly by calling <strong>508-215-7462</strong> or emailing{" "}
+                          <strong>SaintedHandsbyJCM@gmail.com</strong>
+                        </p>
                       </div>
-                    ) : (
-                      <div className="flex flex-col items-center justify-center h-96 bg-[#FEFAE0]">
-                        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A373] mb-4"></div>
-                        <span className="text-[#606C38] font-semibold">Loading booking calendar...</span>
-                        <p className="text-[#283618] text-sm mt-2">This may take a few moments</p>
-                      </div>
-                    )}
+                    </div>
                   </div>
                 </motion.div>
               )}
