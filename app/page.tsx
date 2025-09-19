@@ -680,8 +680,6 @@ const ServiceDetail = ({ service, onBack, setPage }: any) => (
   </motion.div>
 )
 
-export { ServicesPage, AboutPage, ContactPage, BookingPage }
-
 const ServicesPage = ({ initialService, setPage, services }: any) => {
   const [selectedService, setSelectedService] = useState(initialService)
 
