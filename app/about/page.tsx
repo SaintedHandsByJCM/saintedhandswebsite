@@ -139,10 +139,6 @@ const fadeInUp = {
 }
 
 export default function AboutPage() {
-  const images = {
-    profile: "/images/profile.webp",
-  }
-
   return (
     <div className="min-h-screen">
       <Header />
@@ -163,7 +159,7 @@ export default function AboutPage() {
           </motion.h1>
           <motion.img
             variants={fadeInUp}
-            src={images.profile}
+            src="/images/profile.jpeg"
             alt="John Carlo Madrio"
             className="w-48 h-48 rounded-full object-cover mx-auto mb-8 border-4 border-[#D4A373]/50"
           />
